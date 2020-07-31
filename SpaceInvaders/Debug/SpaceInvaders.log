@@ -1,2 +1,1 @@
-﻿  main.cpp
-  SpaceInvaders.vcxproj -> C:\Users\Francisco\Documents\TEC\I Semester\ARQUI\SpaceInvaders\SpaceInvaders\Debug\SpaceInvaders.exe
+﻿sfml-graphics-d.lib(sfml-graphics-d-2.dll) : fatal error LNK1112: module machine type 'x64' conflicts with target machine type 'x86'
