@@ -1,0 +1,2 @@
+D:\TEC\Arqui\spaceInvaders\Space-Invaders\SpaceInvaders\Debug\SpaceInvaders.exe
+D:\TEC\Arqui\spaceInvaders\Space-Invaders\SpaceInvaders\Debug\SpaceInvaders.pdb
