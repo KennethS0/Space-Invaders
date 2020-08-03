@@ -4,25 +4,25 @@
 Entity::Entity() {
 }
 
-Entity::Entity(char pPosX, char pPosY) {
+Entity::Entity(int pPosX, int pPosY) {
     posx = pPosX;
     posy = pPosY;
 }
 
 // Setters
-void Entity::setPosX(char pPosX) {
+void Entity::setPosX(int pPosX) {
     posx = pPosX;
 }
 
-void Entity::setPosY(char pPosY) {
+void Entity::setPosY(int pPosY) {
     posy = pPosY;
 }
 
 // Getters
-char Entity::getPosX() {
+int Entity::getPosX() {
     return posx;
 }
 
-char Entity::getPosY() {
+int Entity::getPosY() {
     return posy;
 }

@@ -8,7 +8,7 @@ class Alien: public Entity{
     private:
 
     public:
-        Alien(char pPosX, char pPosY) : Entity(pPosX, pPosY){};
+        Alien(int pPosX, int pPosY) : Entity(pPosX, pPosY){};
         
         Bullet shoot();
 

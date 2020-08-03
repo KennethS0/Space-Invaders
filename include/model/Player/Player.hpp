@@ -6,10 +6,10 @@
 
 class Player: public Entity{
     private:
-        char lives;
+        int lives;
 
     public:
-        Player(char pPosX, char pPosY, char pLives) : Entity (pPosX, pPosY) {
+        Player(int pPosX, int pPosY, int pLives) : Entity (pPosX, pPosY) {
             lives = pLives;
         };
 
@@ -21,10 +21,10 @@ class Player: public Entity{
         void loseLife();
 
         // Setters
-        void setLives(char pLives);
+        void setLives(int pLives);
 
         // Getters
-        char getLives();
+        int getLives();
 };
 
 #endif

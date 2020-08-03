@@ -13,7 +13,11 @@ int main()
 {
    Board myBoard = Board();
 
-   cout << myBoard.getBoard();
+   Alien myAlien = Alien(1, 1);
+
+   myBoard.getBoard()[myAlien.getPosX()][myAlien.getPosY()] = &myAlien;
+
+   cout << myBoard.getBoard()[1][1]->getPosX() << "," << myBoard.getBoard()[1][1]->getPosY();
 
    return 0;
 }

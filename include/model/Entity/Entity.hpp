@@ -3,18 +3,18 @@
 
 class Entity {
   private:
-    char posx;
-    char posy;
+    int posx;
+    int posy;
   
   public:
     Entity();
-    Entity(char pPosX, char pPosY);
+    Entity(int pPosX, int pPosY);
 
-    void setPosX(char pPosX);
-    void setPosY(char pPosY);
+    void setPosX(int pPosX);
+    void setPosY(int pPosY);
 
-    char getPosX();
-    char getPosY();
+    int getPosX();
+    int getPosY();
 };
 
 #endif

@@ -13,11 +13,11 @@ Bullet Player::shoot() {
     return Bullet(this->getPosX(), this->getPosY() - 1);
 }
 
-void Player::setLives(char pLives) {
+void Player::setLives(int pLives) {
     this->lives = pLives;
 }
 
-char Player::getLives() {
+int Player::getLives() {
     return lives;
 }
 

@@ -7,7 +7,7 @@ class Bullet: public Entity{
     private:
 
     public:
-    Bullet(char pPosX, char pPosY) : Entity(pPosX, pPosY){};
+    Bullet(int pPosX, int pPosY) : Entity(pPosX, pPosY){};
 
     void moveUp();
     void moveDown();
