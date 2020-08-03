@@ -1,25 +1,25 @@
-#include <model/Entity/Entity.hpp>
-
+#include <include/model/Entity/Entity.hpp>
+using namespace std;
 // Constructor method
-Entity::Entity(char pPosX, char pPosY) {
+Entity(char pPosX, char pPosY) {
     posx = pPosX;
     posy = pPosY;
 }
 
 // Setters
-void Entity::setPosX(char pPosX) {
+void setPosX(char pPosX) {
     posx = pPosX;
 }
 
-void Entity::setPosY(char pPosY) {
+void setPosY(char pPosY) {
     posy = pPosY;
 }
 
 // Getters
-char Entity::getPosX() {
+char getPosX() {
     return posx;
 }
 
-char Entity::getPosY() {
+char getPosY() {
     return posy;
 }

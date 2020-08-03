@@ -2,13 +2,12 @@
 #define PROGRAM_HPP
 
 #include <cstdio>
+using namespace std;
 
-namespace program
-{
     inline void foo()
     {
-        printf("program::foo()\n");
+        printf("foo()\n");
     }
-}
+
 
 #endif
