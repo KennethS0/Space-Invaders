@@ -3,6 +3,9 @@
 
 Board::Board() {
     score = 0;
+    for (int i = 0; i < ROW_SIZE; i++) {
+        board[i] = new Entity[ROW_SIZE];
+    };
 }
 
 int Board::getScore() {
@@ -11,4 +14,8 @@ int Board::getScore() {
 
 void Board::setScore(int pScore) {
     score = pScore;
+}
+
+Entity** Board::getBoard() {
+    return board;
 }

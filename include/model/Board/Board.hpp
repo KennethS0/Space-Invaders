@@ -8,7 +8,7 @@
 
 class Board {
     private:
-        Entity* board[COLUMN_SIZE][ROW_SIZE];
+        Entity** board= new Entity* [COLUMN_SIZE];
         int score;    
 
     public:
@@ -16,6 +16,8 @@ class Board {
 
         int getScore();
         void setScore(int pScore);
+
+        Entity** getBoard();
 };
 
 

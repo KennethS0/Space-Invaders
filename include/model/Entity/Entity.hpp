@@ -7,6 +7,7 @@ class Entity {
     char posy;
   
   public:
+    Entity();
     Entity(char pPosX, char pPosY);
 
     void setPosX(char pPosX);

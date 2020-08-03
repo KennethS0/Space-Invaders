@@ -1,6 +1,9 @@
 #include <model/Entity/Entity.hpp>
 
 // Constructor method
+Entity::Entity() {
+}
+
 Entity::Entity(char pPosX, char pPosY) {
     posx = pPosX;
     posy = pPosY;
