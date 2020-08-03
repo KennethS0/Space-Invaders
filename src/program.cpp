@@ -1,4 +1,4 @@
-#include <model/Entity/Entity.hpp>
+#include <model/Alien/Alien.hpp>
 #include <program.hpp>
 #include <iostream>
 
@@ -6,7 +6,9 @@ using namespace std;
 
 int main()
 {
-   Entity myEnt = Entity(48, 48);
+   Alien myEnt = Alien(48, 48);
+   myEnt.moveLeft();
+
 
    cout << myEnt.getPosX() << "," << myEnt.getPosY() << endl;
 

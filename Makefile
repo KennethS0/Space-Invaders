@@ -23,6 +23,8 @@ TARGET   := program
 INCLUDE  := -Iinclude/
 SRC      :=                      \
    $(wildcard src/model/Entity/*.cpp) \
+   $(wildcard src/model/Alien/*.cpp) \
+   $(wildcard src/model/Bullet/*.cpp) \
    $(wildcard src/*.cpp)         \
 
 OBJECTS  := $(SRC:%.cpp=$(OBJ_DIR)/%.o)
