@@ -6,10 +6,9 @@ using namespace std;
 
 int main()
 {
-   Entity myEnt = {10, 10};
+   Entity myEnt = Entity(48, 48);
 
-   cout << myEnt.posx << endl;
-   cout << "hello world";
+   cout << myEnt.getPosX() << "," << myEnt.getPosY() << endl;
 
    return 0;
 }

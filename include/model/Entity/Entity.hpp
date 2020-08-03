@@ -1,10 +1,17 @@
-#ifndef ENTITY_HPP
 #define ENTITY_HPP
 
-typedef struct 
-{
-  char posx;
-  char posy;  
-} Entity;
+class Entity {
+  private:
+    char posx;
+    char posy;
+  
+  public:
+    Entity(char pPosX, char pPosY);
 
-#endif
+    void setPosX(char pPosX);
+    void setPosY(char pPosY);
+
+    char getPosX();
+    char getPosY();
+};
+
