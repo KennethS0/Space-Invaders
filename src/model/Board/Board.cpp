@@ -34,6 +34,10 @@ Entity*** Board::getBoard() {
     return board;
 }
 
+// void Board::changePos(Entity pEnt, int pNewX, int pNewY) {
+
+// }
+
 void Board::printBoard() {
     for (int i = 0; i < ROW_SIZE; i++) {
         cout << '|';
@@ -48,6 +52,5 @@ void Board::printBoard() {
         };
 
         cout << '|' << endl;
-
     };
 }
