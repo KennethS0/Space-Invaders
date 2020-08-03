@@ -1,2 +1,6 @@
 *.exe
 .vscode
+
+# Binary files
+/build
+space_invaders
