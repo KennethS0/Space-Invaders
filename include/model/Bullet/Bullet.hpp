@@ -7,7 +7,9 @@ class Bullet: public Entity{
     private:
 
     public:
-    Bullet(int pPosX, int pPosY, char pSymbol) : Entity(pPosX, pPosY, pSymbol){};
+    Bullet(int pPosX, int pPosY) : Entity(pPosX, pPosY){
+        this->setSymbol('*');
+    };
 
     void moveUp();
     void moveDown();

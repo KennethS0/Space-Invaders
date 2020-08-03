@@ -2,6 +2,10 @@
 #include <model/Entity/Entity.hpp>
 #include <model/Alien/Alien.hpp>
 
+#include <iostream>
+
+using namespace std;
+
 Board::Board() {
     score = 0;
     // Declaring the array
@@ -30,7 +34,20 @@ Entity*** Board::getBoard() {
     return board;
 }
 
-void changePos(Alien pAlien, int posX, int posY){
-    pAlien.setPosX(posX);
-    pAlien.setPosY(posY);
+void Board::printBoard() {
+    for (int i = 0; i < ROW_SIZE; i++) {
+        cout << '|';
+
+        for (int j = 0; j < COLUMN_SIZE; j++) {
+            // NULLPTR IS FOUND
+            if (board[i][j] == nullptr) {
+                cout << ' ';
+            } else {
+                cout << board[i][j]->getSymbol();
+            };
+        };
+
+        cout << '|' << endl;
+
+    };
 }

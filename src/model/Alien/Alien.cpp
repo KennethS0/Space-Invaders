@@ -15,5 +15,5 @@ void Alien::moveLeft() {
 }
 
 Bullet Alien::shoot() {
-    return Bullet(this->getPosX(), this->getPosY() + 1, this->getSymbol());
+    return Bullet(this->getPosX(), this->getPosY() + 1);
 }

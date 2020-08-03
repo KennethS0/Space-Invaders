@@ -9,11 +9,11 @@ class Entity {
   
   public:
     Entity();
-    Entity(int pPosX, int pPosY, char pSymbol);
+    Entity(int pPosX, int pPosY);
 
     void setPosX(int pPosX);
     void setPosY(int pPosY);
-    void setSymol(char pSymbol);
+    void setSymbol(char pSymbol);
 
     int getPosX();
     int getPosY();

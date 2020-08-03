@@ -17,6 +17,10 @@ class Board {
         int getScore();
         void setScore(int pScore);
 
+        void printBoard();      
+
+        void changePos();
+
         Entity*** getBoard();
 };
 

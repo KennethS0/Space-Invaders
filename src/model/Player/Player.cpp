@@ -10,7 +10,7 @@ void Player::moveRight() {
 }
 
 Bullet Player::shoot() {
-    return Bullet(this->getPosX(), this->getPosY() - 1, this->getSymbol());
+    return Bullet(this->getPosX(), this->getPosY() - 1);
 }
 
 void Player::setLives(int pLives) {

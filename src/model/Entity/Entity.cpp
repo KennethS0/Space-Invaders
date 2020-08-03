@@ -4,10 +4,10 @@
 Entity::Entity() {
 }
 
-Entity::Entity(int pPosX, int pPosY, char pSymbol) {
+Entity::Entity(int pPosX, int pPosY) {
     posx = pPosX;
     posy = pPosY;
-    symbol = pSymbol;
+    symbol = ' ';
 }
 
 // Setters
@@ -19,7 +19,7 @@ void Entity::setPosY(int pPosY) {
     posy = pPosY;
 }
 
-void Entity::setSymol(char pSymbol){
+void Entity::setSymbol(char pSymbol){
     symbol = pSymbol;
 }
 
