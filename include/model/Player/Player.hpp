@@ -9,7 +9,7 @@ class Player: public Entity{
         int lives;
 
     public:
-        Player(int pPosX, int pPosY, int pLives) : Entity (pPosX, pPosY) {
+        Player(int pPosX, int pPosY, char pSymbol, int pLives) : Entity (pPosX, pPosY, pSymbol) {
             lives = pLives;
         };
 
@@ -25,6 +25,7 @@ class Player: public Entity{
 
         // Getters
         int getLives();
+
 };
 
 #endif
