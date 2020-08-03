@@ -5,5 +5,5 @@ void Bullet::moveUp() {
 }
 
 void Bullet::moveDown() {
-    this->setPosY(this->getPosY() + 1)
+    this->setPosY(this->getPosY() + 1);
 }

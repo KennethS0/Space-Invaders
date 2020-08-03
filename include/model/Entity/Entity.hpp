@@ -1,3 +1,4 @@
+#ifndef ENTITY_HPP
 #define ENTITY_HPP
 
 class Entity {
@@ -6,7 +7,6 @@ class Entity {
     char posy;
   
   public:
-    Entity();
     Entity(char pPosX, char pPosY);
 
     void setPosX(char pPosX);
@@ -16,3 +16,4 @@ class Entity {
     char getPosY();
 };
 
+#endif

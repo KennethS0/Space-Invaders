@@ -6,11 +6,6 @@ Entity::Entity(char pPosX, char pPosY) {
     posy = pPosY;
 }
 
-Entity::Entity() {
-    posx = 0;
-    posy = 0;
-}
-
 // Setters
 void Entity::setPosX(char pPosX) {
     posx = pPosX;
