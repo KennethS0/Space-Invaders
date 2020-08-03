@@ -1,5 +1,6 @@
 #include <model/Board/Board.hpp>
 #include <model/Entity/Entity.hpp>
+#include <model/Alien/Alien.hpp>
 
 Board::Board() {
     score = 0;
@@ -27,4 +28,9 @@ void Board::setScore(int pScore) {
 
 Entity*** Board::getBoard() {
     return board;
+}
+
+void changePos(Alien pAlien, int posX, int posY){
+    pAlien.setPosX(posX);
+    pAlien.setPosY(posY);
 }
