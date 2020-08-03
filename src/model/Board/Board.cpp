@@ -3,9 +3,18 @@
 
 Board::Board() {
     score = 0;
+    // Declaring the array
     for (int i = 0; i < ROW_SIZE; i++) {
-        board[i] = new Entity[ROW_SIZE];
+        board[i] = new Entity* [COLUMN_SIZE];
     };
+
+    // Nulling pointers
+    for (int i = 0; i < ROW_SIZE; i++) {
+        for (int j = 0; j < COLUMN_SIZE; j++) {
+
+            board[i][j] = nullptr;
+        }
+    }
 }
 
 int Board::getScore() {
@@ -16,6 +25,6 @@ void Board::setScore(int pScore) {
     score = pScore;
 }
 
-Entity** Board::getBoard() {
+Entity*** Board::getBoard() {
     return board;
 }
