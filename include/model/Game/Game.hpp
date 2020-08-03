@@ -14,7 +14,7 @@ class Game {
     private:
         vector<Alien> aliens;
         vector<Bullet> bullets;
-        // Player player(int pPosx, int pPosy, int pLives);
+        Player player;
         Board board;
 
 

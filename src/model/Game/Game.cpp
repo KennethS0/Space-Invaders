@@ -15,7 +15,7 @@ Game::Game() {
     };
 
     // Initializing Player
-    // player = Player(ROW_SIZE - 1, (int) (COLUMN_SIZE / 2), 3);
+    player = Player(ROW_SIZE - 1, (int) (COLUMN_SIZE / 2), 3);
 
     // Initializing Board
     board = Board();
@@ -25,6 +25,7 @@ Game::Game() {
        board.getBoard()[it.getPosX()][it.getPosY()] = &it;
     };
 
-    board.printBoard();
     // Setting the player in the board
+    board.getBoard()[player.getPosX()][player.getPosY()] = &player;
+    board.printBoard();
 }

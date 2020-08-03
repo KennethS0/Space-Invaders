@@ -9,6 +9,8 @@ class Player: public Entity{
         int lives;
 
     public:
+        Player();
+
         Player(int pPosX, int pPosY, int pLives) : Entity (pPosX, pPosY) {
             this->setSymbol('M');
             lives = pLives;

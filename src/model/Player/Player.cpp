@@ -1,6 +1,8 @@
 #include <model/Player/Player.hpp>
 #include <model/Bullet/Bullet.hpp>
 
+Player::Player(){}
+
 void Player::moveLeft() {
     this->setPosX(this->getPosX() - 1);
 }
