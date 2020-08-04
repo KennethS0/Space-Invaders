@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include <thread>
+#include <cstdlib>
+#include <unistd.h>
 
 using namespace std;
 
@@ -71,7 +73,7 @@ void Game::startGame() {
     while (!over) {
         // Keeps refreshing the screen
         board.printBoard();
-        
+        sleep(1);
         system("clear");
     }   
 }
