@@ -22,7 +22,9 @@ class Game {
         Game();
 
         void startGame(bool inTerminal);
-
+        
+        void alienMovement();
+        void bulletMovement();
         void movePlayer();
 
         void setOver(bool pOver);

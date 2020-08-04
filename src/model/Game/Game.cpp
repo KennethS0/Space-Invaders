@@ -64,10 +64,67 @@ void Game::movePlayer() {
 }
 
 
+void Game::alienMovement() {
+    // 0 Leftmost
+    // 0 Rightmost
+    int boundaries[2] = {-1, -1};
+
+    // false -> (move right)
+    // true <- (move left)
+    bool direction = false;
+    while (!over) {
+        
+        // Finds the boundaries
+        for (auto &it: aliens) {
+            if (it.getPosX() < boundaries[0] || boundaries[0] == -1) {
+                // Finds the leftmost
+                boundaries[0] = it.getPosX();
+            }
+
+            if (it.getPosX() > boundaries[1] || boundaries[1] == -1) {
+                // Finds the rightmost
+                boundaries[1] = it.getPosX();
+            }
+        };
+
+        // Moving every alien
+        for (auto &it: aliens) {
+            int posX = it.getPosX();
+            int posY = it.getPosY();
+
+            if (boundaries[0] == 0 || boundaries[1] == COLUMN_SIZE - 1) {
+                it.moveDown();
+                board.changePos(it, posX, posY);
+                direction = !direction;
+            } else if (direction){
+                it.moveLeft();
+                board.changePos(it, posX, posY);
+            } else {
+                it.moveRight();
+                board.changePos(it, posX, posY);
+            }
+        }
+        
+        boundaries[0] = -1;
+        boundaries[1] = -1;
+
+        this_thread::sleep_for(chrono::milliseconds(1));
+    }
+}
+
+
+void Game::bulletMovement() {
+
+}
+
+
 void Game::startGame(bool inTerminal) {
     // Initial game set up
-    thread movement(&Game::movePlayer, this);
-    movement.detach();
+    thread playerMovement(&Game::movePlayer, this);
+    playerMovement.detach();
+
+    thread alienMovement(&Game::alienMovement, this);
+    alienMovement.detach();
 
     while (!over && inTerminal) {
         // Keeps refreshing the screen
@@ -77,9 +134,11 @@ void Game::startGame(bool inTerminal) {
     }   
 }
 
+
 void Game::setOver(bool pOver) {
     over = pOver;
 }
+
 
 bool Game::isOver() {
     return over;
