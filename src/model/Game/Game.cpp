@@ -138,7 +138,11 @@ void Game::bulletMovement() {
                 
                 } else {
                     // Remove alien from vector
-
+                    if(board.getBoard()[it.getPosY()][it.getPosX()] != nullptr){
+                        (board.getBoard()[it.getPosY()][it.getPosX()] = nullptr);
+                        board.clearPos(it, posX, posY);
+                       
+                    }
                     // Remove bullet from vector
 
                     // Remove both pointers
