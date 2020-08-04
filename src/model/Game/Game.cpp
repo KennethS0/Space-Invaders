@@ -63,9 +63,9 @@ void Game::startGame() {
     // Initial game set up
     while (!over) {
         // Keeps refreshing the screen
-        movePlayer();
-
         board.printBoard();
+
+        movePlayer();
     }   
 }
 
