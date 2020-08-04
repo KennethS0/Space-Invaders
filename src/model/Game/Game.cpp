@@ -2,15 +2,13 @@
 
 #include <iostream>
 #include <thread>
+#include <ncurses.h>
 
 using namespace std;
 
 Game::Game() {
-
-
-    thread test(&Game::movePlayer, this);
-    test.detach();
-
+    over = false;
+    
     // Initializing aliens
     for (int i = 3; i < COLUMN_SIZE - 3; i++) {
 
@@ -26,15 +24,62 @@ Game::Game() {
     board = Board();
 
     // Setting the aliens in the board
-    for (auto it : aliens) {
-       board.getBoard()[it.getPosX()][it.getPosY()] = &it;
+    for (auto &it : aliens) {
+       board.getBoard()[it.getPosY()][it.getPosX()] = (Entity *)&it;
     };
 
     // Setting the player in the board
-    board.getBoard()[player.getPosX()][player.getPosY()] = &player;
-    board.printBoard();
+    board.getBoard()[player.getPosY()][player.getPosX()] = &player;
 }
 
 void Game::movePlayer() {
-    cout<<"xd"<<endl;
+        int keyPressed;
+        keyPressed = getch();
+
+        int x = player.getPosX();
+
+        if (keyPressed == KEY_LEFT) {
+            // Moves the player to the left
+            player.moveLeft();
+            board.changePos(player, x, player.getPosY());
+        } 
+        else if (keyPressed == KEY_RIGHT) {
+            // Moves the player to the right
+            player.moveRight();
+            board.changePos(player, x, player.getPosY());
+        }
+        else if (keyPressed == ' ') {
+            // Shoots
+            Bullet shot = player.shoot();
+            shot.setFromPlayer(true);
+            bullets.push_back(shot);
+
+            board.getBoard()[shot.getPosY()][shot.getPosX()] = &shot;
+        }
+}
+
+
+void Game::startGame() {
+    // Initial game set up
+    initscr();
+    raw();
+    keypad(stdscr, TRUE);
+    noecho();
+
+    while (!over) {
+        // Keeps refreshing the screen
+        move(0, 0);
+        board.printBoard();
+        refresh();
+
+        movePlayer();
+    }   
+}
+
+void Game::setOver(bool pOver) {
+    over = pOver;
+}
+
+bool Game::isOver() {
+    return over;
 }

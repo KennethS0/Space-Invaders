@@ -16,14 +16,17 @@ class Game {
         vector<Bullet> bullets;
         Player player;
         Board board;
-
+        bool over;
 
     public:
         Game();
 
+        void startGame();
+
         void movePlayer();
 
-
+        void setOver(bool pOver);
+        bool isOver();
 };
 
 #endif

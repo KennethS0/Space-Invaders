@@ -7,6 +7,7 @@ using namespace std;
 int main()
 {
    Game si = Game();
+   si.startGame();
 
    return 0;
 }

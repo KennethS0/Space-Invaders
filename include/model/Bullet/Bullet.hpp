@@ -5,6 +5,8 @@
 
 class Bullet: public Entity{
     private:
+        bool fromPlayer;
+
 
     public:
     Bullet(int pPosX, int pPosY) : Entity(pPosX, pPosY){
@@ -14,6 +16,8 @@ class Bullet: public Entity{
     void moveUp();
     void moveDown();
 
+    bool isFromPlayer();
+    void setFromPlayer(bool pFromPlayer);
 };
 
 #endif

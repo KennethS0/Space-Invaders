@@ -19,7 +19,7 @@ class Board {
 
         void printBoard();      
 
-        void changePos(Entity pEnt, int pNewX, int pNewY);
+        void changePos(Entity& pEnt, int pOldX, int pOldY);
 
         Entity*** getBoard();
 };

@@ -4,7 +4,7 @@
 Entity::Entity() {
 }
 
-Entity::Entity(int pPosX, int pPosY) {
+Entity::Entity(int pPosY, int pPosX) {
     posx = pPosX;
     posy = pPosY;
     symbol = ' ';
