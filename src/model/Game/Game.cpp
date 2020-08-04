@@ -80,35 +80,47 @@ void Game::alienMovement() {
                 // Finds the leftmost
                 boundaries[0] = it.getPosX();
             }
-
             if (it.getPosX() > boundaries[1] || boundaries[1] == -1) {
                 // Finds the rightmost
                 boundaries[1] = it.getPosX();
             }
         };
 
-        // Moving every alien
-        for (auto &it: aliens) {
-            int posX = it.getPosX();
-            int posY = it.getPosY();
+        if (boundaries[0] == 0 || boundaries[1] == COLUMN_SIZE - 1) {
+            // for (auto &it: aliens) {
+            //     int posX = it.getPosX();
+            //     int posY = it.getPosY();
 
-            if (boundaries[0] == 0 || boundaries[1] == COLUMN_SIZE - 1) {
-                it.moveDown();
-                board.changePos(it, posX, posY);
-                direction = !direction;
-            } else if (direction){
+            //     it.moveDown();
+            //     board.changePos(it, posX, posY);
+            // }
+            direction = !direction;
+        }
+
+        if (direction) {
+            for (auto it = aliens.rbegin(); it != aliens.rend(); it++) {
+                int posX = it.base().base()->getPosX();
+                int posY = it.base().base()->getPosY();
+
+                it.base().base()->moveRight();
+                board.changePos(*it.base().base(), posX, posY);
+            }  
+        
+        } else {
+            // Moving every alien
+            for (auto &it: aliens) {
+                
+                int posX = it.getPosX();
+                int posY = it.getPosY();
+                
                 it.moveLeft();
-                board.changePos(it, posX, posY);
-            } else {
-                it.moveRight();
                 board.changePos(it, posX, posY);
             }
         }
-        
-        boundaries[0] = -1;
-        boundaries[1] = -1;
 
-        this_thread::sleep_for(chrono::milliseconds(1));
+        this_thread::sleep_for(chrono::milliseconds(1000));
+        boundaries[0] = -1;
+        boundaries[1] = -1;   
     }
 }
 
