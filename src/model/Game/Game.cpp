@@ -32,8 +32,10 @@ Game::Game() {
 }
 
 void Game::movePlayer() {
-        char keyPressed;
+            
+    char keyPressed;
 
+    while (!over){
         int x = player.getPosX();
 
         keyPressed = getchar();
@@ -56,16 +58,21 @@ void Game::movePlayer() {
 
             board.getBoard()[shot.getPosY()][shot.getPosX()] = &shot;
         }
+    }
 }
 
 
 void Game::startGame() {
     // Initial game set up
+
+    thread movement(&Game::movePlayer, this);
+    movement.detach();
+
     while (!over) {
         // Keeps refreshing the screen
         board.printBoard();
-
-        movePlayer();
+        
+        system("clear");
     }   
 }
 
