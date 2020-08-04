@@ -1,7 +1,6 @@
 #include <model/Board/Board.hpp>
 #include <model/Entity/Entity.hpp>
 #include <model/Alien/Alien.hpp>
-#include <ncurses.h>
 
 #include <iostream>
 
@@ -45,18 +44,18 @@ void Board::changePos(Entity& pEnt, int pOldX, int pOldY) {
 
 void Board::printBoard() {
     for (int i = 0; i < ROW_SIZE; i++) {
-        printw("|");
+        cout << '|';
 
         for (int j = 0; j < COLUMN_SIZE; j++) {
             // NULLPTR IS FOUND
             if (board[i][j] == nullptr) {
-                printw(" ");
+                cout << ' ';
             } else {
-                printw("%c", board[i][j]->getSymbol());
+                cout << board[i][j]->getSymbol();
             };
         };
 
-        printw("|\n");
+        cout<< '|' << endl;
     };
-    printw("\nScore: %d\n", score);
+    cout << "\nScore:" << score << endl;
 }

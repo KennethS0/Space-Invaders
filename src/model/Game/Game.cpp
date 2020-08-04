@@ -2,7 +2,6 @@
 
 #include <iostream>
 #include <thread>
-#include <ncurses.h>
 
 using namespace std;
 
@@ -33,17 +32,18 @@ Game::Game() {
 }
 
 void Game::movePlayer() {
-        int keyPressed;
-        keyPressed = getch();
+        char keyPressed;
 
         int x = player.getPosX();
 
-        if (keyPressed == KEY_LEFT) {
+        keyPressed = getchar();
+
+        if (keyPressed == 'a') {
             // Moves the player to the left
             player.moveLeft();
             board.changePos(player, x, player.getPosY());
         } 
-        else if (keyPressed == KEY_RIGHT) {
+        else if (keyPressed == 'd') {
             // Moves the player to the right
             player.moveRight();
             board.changePos(player, x, player.getPosY());
@@ -61,18 +61,11 @@ void Game::movePlayer() {
 
 void Game::startGame() {
     // Initial game set up
-    initscr();
-    raw();
-    keypad(stdscr, TRUE);
-    noecho();
-
     while (!over) {
         // Keeps refreshing the screen
-        move(0, 0);
-        board.printBoard();
-        refresh();
-
         movePlayer();
+
+        board.printBoard();
     }   
 }
 
