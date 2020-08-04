@@ -73,7 +73,7 @@ void Game::alienMovement() {
     // true <- (move left)
     bool direction = false;
     while (!over) {
-        
+
         // Finds the boundaries
         for (auto &it: aliens) {
             if (it.getPosX() < boundaries[0] || boundaries[0] == -1) {
@@ -84,41 +84,33 @@ void Game::alienMovement() {
                 // Finds the rightmost
                 boundaries[1] = it.getPosX();
             }
+
+            board.getBoard()[it.getPosY()][it.getPosX()] = nullptr;
         };
 
         if (boundaries[0] == 0 || boundaries[1] == COLUMN_SIZE - 1) {
-            // for (auto &it: aliens) {
-            //     int posX = it.getPosX();
-            //     int posY = it.getPosY();
-
-            //     it.moveDown();
-            //     board.changePos(it, posX, posY);
-            // }
+            for (auto &it: aliens) {
+                it.moveDown();
+            }
+            
             direction = !direction;
         }
 
-        if (direction) {
-            for (auto it = aliens.rbegin(); it != aliens.rend(); it++) {
-                int posX = it.base().base()->getPosX();
-                int posY = it.base().base()->getPosY();
-
-                it.base().base()->moveRight();
-                board.changePos(*it.base().base(), posX, posY);
-            }  
-        
-        } else {
-            // Moving every alien
-            for (auto &it: aliens) {
-                
-                int posX = it.getPosX();
-                int posY = it.getPosY();
-                
+        // Moving every alien
+        for (auto &it: aliens) {
+            if (!direction) {
+                it.moveRight();
+            } else {
                 it.moveLeft();
-                board.changePos(it, posX, posY);
-            }
+            }     
         }
 
-        this_thread::sleep_for(chrono::milliseconds(1000));
+        // Redrawing the aliens
+        for (auto &it: aliens) {
+            board.getBoard()[it.getPosY()][it.getPosX()] = (Entity*) &it;
+        };
+
+        this_thread::sleep_for(chrono::milliseconds(800));
         boundaries[0] = -1;
         boundaries[1] = -1;   
     }
