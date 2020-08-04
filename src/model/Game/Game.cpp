@@ -59,6 +59,7 @@ void Game::movePlayer() {
             bullets.push_back(shot);
 
             board.getBoard()[shot.getPosY()][shot.getPosX()] = &shot;
+            this_thread::sleep_for(chrono::milliseconds(300));
         }
     }
 }
@@ -120,10 +121,30 @@ void Game::alienMovement() {
 
 
 void Game::bulletMovement() {
-
     while (!over) {
         if (bullets.size() != 0) {
+            for (auto &it: bullets) {
+                int posX = it.getPosX();
+                int posY = it.getPosY();
 
+                if (it.isFromPlayer()) {
+                    it.moveUp();
+                } else {
+                    it.moveDown();
+                }
+                
+                if (board.getBoard()[it.getPosY()][it.getPosX()] == nullptr) {
+                    board.changePos(it, posX, posY);
+                
+                } else {
+                    // Remove alien from vector
+
+                    // Remove bullet from vector
+
+                    // Remove both pointers
+                }
+            }
+            this_thread::sleep_for(chrono::milliseconds(600));
         }
     }
 }
@@ -137,8 +158,8 @@ void Game::startGame(bool inTerminal) {
     thread alienMovement(&Game::alienMovement, this);
     alienMovement.detach();
 
-    // thread bulletMovement(&Game::bulletMovement, this);
-    // bulletMovement.detach();
+    thread bulletMovement(&Game::bulletMovement, this);
+    bulletMovement.detach();
 
     while (!over && inTerminal) {
         // Keeps refreshing the screen
