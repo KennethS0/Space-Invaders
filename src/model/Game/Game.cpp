@@ -59,7 +59,7 @@ void Game::movePlayer() {
             bullets.push_back(shot);
 
             board.getBoard()[shot.getPosY()][shot.getPosX()] = &shot;
-            this_thread::sleep_for(chrono::milliseconds(300));
+            this_thread::sleep_for(chrono::milliseconds(200));
         }
     }
 }
@@ -144,7 +144,7 @@ void Game::bulletMovement() {
                     // Remove both pointers
                 }
             }
-            this_thread::sleep_for(chrono::milliseconds(600));
+            this_thread::sleep_for(chrono::milliseconds(100));
         }
     }
 }
