@@ -84,7 +84,10 @@ void Game::alienMovement() {
                 // Finds the rightmost
                 boundaries[1] = it.getPosX();
             }
-
+            if (it.getPosY() == ROW_SIZE - 1) {
+                over = true;
+                continue;
+            }
             board.getBoard()[it.getPosY()][it.getPosX()] = nullptr;
         };
 
@@ -92,7 +95,6 @@ void Game::alienMovement() {
             for (auto &it: aliens) {
                 it.moveDown();
             }
-            
             direction = !direction;
         }
 
@@ -110,7 +112,7 @@ void Game::alienMovement() {
             board.getBoard()[it.getPosY()][it.getPosX()] = (Entity*) &it;
         };
 
-        this_thread::sleep_for(chrono::milliseconds(800));
+        this_thread::sleep_for(chrono::milliseconds(900));
         boundaries[0] = -1;
         boundaries[1] = -1;   
     }
@@ -119,6 +121,11 @@ void Game::alienMovement() {
 
 void Game::bulletMovement() {
 
+    while (!over) {
+        if (bullets.size() != 0) {
+
+        }
+    }
 }
 
 
@@ -129,6 +136,9 @@ void Game::startGame(bool inTerminal) {
 
     thread alienMovement(&Game::alienMovement, this);
     alienMovement.detach();
+
+    // thread bulletMovement(&Game::bulletMovement, this);
+    // bulletMovement.detach();
 
     while (!over && inTerminal) {
         // Keeps refreshing the screen
