@@ -73,7 +73,7 @@ void Game::startGame() {
     while (!over) {
         // Keeps refreshing the screen
         board.printBoard();
-        sleep(1);
+        this_thread::sleep_for(chrono::milliseconds(45) );
         system("clear");
     }   
 }
