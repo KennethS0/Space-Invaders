@@ -21,7 +21,7 @@ class Game {
     public:
         Game();
 
-        void startGame();
+        void startGame(bool inTerminal);
 
         void movePlayer();
 

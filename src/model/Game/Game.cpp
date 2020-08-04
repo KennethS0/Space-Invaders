@@ -64,16 +64,15 @@ void Game::movePlayer() {
 }
 
 
-void Game::startGame() {
+void Game::startGame(bool inTerminal) {
     // Initial game set up
-
     thread movement(&Game::movePlayer, this);
     movement.detach();
 
-    while (!over) {
+    while (!over && inTerminal) {
         // Keeps refreshing the screen
         board.printBoard();
-        this_thread::sleep_for(chrono::milliseconds(45) );
+        this_thread::sleep_for(chrono::milliseconds(37));
         system("clear");
     }   
 }
