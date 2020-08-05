@@ -7,6 +7,8 @@
 #include <unistd.h>
 using namespace std;
 
+#define MAX_ENEMY_BULLETS 1
+
 Game::Game() {
     over = false;
     
@@ -62,7 +64,7 @@ void Game::movePlayer() {
             bullets.push_back(shot);
 
             board.getBoard()[shot.getPosY()][shot.getPosX()] = &shot;
-            this_thread::sleep_for(chrono::milliseconds(200));
+            this_thread::sleep_for(chrono::milliseconds(100));
         }
     }
 }
@@ -136,8 +138,19 @@ void Game::bulletMovement() {
 
                 if (it.isFromPlayer()) {
                     it.moveUp();
+                    if (it.getPosY() < 0) {
+                        board.clearPos(it.getPosX(), it.getPosY() + 1);
+                        bullets.erase(bullets.begin() + bulletPos);
+                        continue;
+                    }
+
                 } else {
                     it.moveDown();
+                    if (it.getPosY() > ROW_SIZE - 1) {
+                        board.clearPos(it.getPosX(), it.getPosY() - 1);
+                        bullets.erase(bullets.begin() + bulletPos);
+                        continue;
+                    }
                 }
                 
                 if (board.getBoard()[it.getPosY()][it.getPosX()] == nullptr) {
@@ -196,24 +209,29 @@ void Game::startGame(bool inTerminal) {
 
 
 void Game::generateShots() {
-    // for (auto &it: aliens) {
-    //     // Generating random boolean
-    //     srand(time(0));
-    //     bool randomCondition = rand() % 2;
+    int bulletCount = 0;
+    for (auto &it: aliens) {
+        if (bulletCount == MAX_ENEMY_BULLETS) {
+            return;
+        }
+        // Generating random boolean
+        srand(time(0));
+        bool randomCondition = rand() % 2;
     
-    //     int posX = it.getPosX();
-    //     int posY = it.getPosY();
+        int posX = it.getPosX();
+        int posY = it.getPosY();
     
-    //     // Checks if theres an entity in front
-    //     if (board.getBoard()[posY + 1][posX] == nullptr && randomCondition) {
-    //         Bullet shot = it.shoot();
-    //         shot.setFromPlayer(false);
-    //         bullets.push_back(shot);
+        // Checks if theres an entity in front
+        if (board.getBoard()[posY + 1][posX] == nullptr && randomCondition) {
+            Bullet shot = it.shoot();
+            shot.setFromPlayer(false);
+            bullets.push_back(shot);
  
-    //         board.getBoard()[shot.getPosY()][shot.getPosX()] = &shot;
-    //         this_thread::sleep_for(chrono::milliseconds(100));
-    //     }
-    // }
+            board.getBoard()[shot.getPosY()][shot.getPosX()] = &shot;
+            bulletCount++;
+            this_thread::sleep_for(chrono::milliseconds(100));
+        }
+    }
 }
 
 
