@@ -63,7 +63,7 @@ void Game::run()
     
 
     if(!BackgroundTexture.loadFromFile("background.jpg")){
-        cout<<"";
+        cout<<"error";
     } else{
         sizeOfTexture = BackgroundTexture.getSize();
         sizeOfWindow = gameWindow.getSize();
