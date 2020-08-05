@@ -14,17 +14,6 @@ using namespace std;
 Game::Game() {
     over = false;
     
-    // Initializing aliens
-    for (int i = 3; i < COLUMN_SIZE - 3; i++) {
-
-        for (int j = 0; j < 4; j++) {
-            aliens.push_back(Alien(j, i));
-        };
-    };
-
-    // Randomizing aliens
-    random_shuffle(aliens.begin(), aliens.end());
-
     // Initializing Player
     player = Player(ROW_SIZE - 1, (int) (COLUMN_SIZE / 2 - 1));
 
@@ -82,6 +71,10 @@ void Game::alienMovement() {
     bool direction = false;
     while (!over) {
 
+        if(aliens.size() == 0) {
+            spawnAliens();
+        }
+
         // Finds the boundaries
         for (auto &it: aliens) {
             if (it.getPosX() < boundaries[0] || boundaries[0] == -1) {
@@ -92,9 +85,9 @@ void Game::alienMovement() {
                 // Finds the rightmost
                 boundaries[1] = it.getPosX();
             }
-            if (it.getPosY() == ROW_SIZE - 1) {
+            if (it.getPosY() == ROW_SIZE) {
                 over = true;
-                continue;
+                break;
             }
             board.getBoard()[it.getPosY()][it.getPosX()] = nullptr;
         };
@@ -273,6 +266,19 @@ void Game::setOver(bool pOver) {
     over = pOver;
 }
 
+
+void Game::spawnAliens() {
+    // Initializing aliens
+    for (int i = 3; i < COLUMN_SIZE - 3; i++) {
+
+        for (int j = 0; j < 4; j++) {
+            aliens.push_back(Alien(j, i));
+        };
+    };
+
+    // Randomizing aliens
+    random_shuffle(aliens.begin(), aliens.end());
+}
 
 bool Game::isOver() {
     return over;

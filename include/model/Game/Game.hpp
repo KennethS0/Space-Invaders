@@ -28,6 +28,7 @@ class Game {
         void movePlayer();
 
         void generateShots();
+        void spawnAliens();
 
         void setOver(bool pOver);
         bool isOver();
