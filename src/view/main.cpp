@@ -6,6 +6,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include "GameWindow.cpp"
 
 
 using namespace std;
@@ -72,21 +73,26 @@ int main()
                     window.close();
                     break;
                 case sf::Event::KeyPressed:
-                    switch(event.key.code)
+                    switch (event.key.code)
                     {
-                        case sf::Keyboard::Return:
-                            //Play Game
-                            cout << "Running Game..." << endl;
-                            window.close();
-                            break;
-                        case sf::Keyboard::Escape:
-                            //exit Game
-                            cout << "Quitting Game..." << endl;
-                            window.close();
-                            break;
-                default:
+                    case sf::Keyboard::Return:{
+                        //Play Game
+                        cout << "Running Game..." << endl;
+                        window.close();
+                        auto game = Game{};
+                        game.run();
                         break;
                     }
+                    case sf::Keyboard::Escape:{
+                        //exit Game
+                        cout << "Quitting Game..." << endl;
+                        window.close();
+                        break;
+                    }
+                    default:
+                        break;
+                    }
+
             }
             
         }  
