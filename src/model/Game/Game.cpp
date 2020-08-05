@@ -5,7 +5,6 @@
 #include <algorithm>
 #include <cstdlib>
 #include <unistd.h>
-
 using namespace std;
 
 Game::Game() {
@@ -129,7 +128,9 @@ void Game::alienMovement() {
 void Game::bulletMovement() {
     while (!over) {
         if (bullets.size() != 0) {
+            int bulletPos = 0;
             for (auto &it: bullets) {
+                
                 int posX = it.getPosX();
                 int posY = it.getPosY();
 
@@ -142,28 +143,32 @@ void Game::bulletMovement() {
                 if (board.getBoard()[it.getPosY()][it.getPosX()] == nullptr) {
                     board.changePos(it, posX, posY);
                 } else {
-                    // Remove alien from vector
+                    // Removes pointers from vector
+                    board.clearPos(posX, posY);
+                    // Entity* ent = board.getBoard()[it.getPosY()][it.getPosX()];
 
-                    if(board.getBoard()[it.getPosY()][it.getPosX()] != nullptr){
-                        board.clearPos(it, posX, posY);
-                        int k;
-                        for (auto &et: aliens){//E.T Movie Pun
-                            int X = et.getPosX();
-                            int Y = et.getPosY();
-                            if((X == posX) && (Y == posY)){
-                                break;
-                            }
-                            k++;    
+                    int entPos = 0;
+                    for (auto &et : aliens) {
+                        int x = et.getPosX();
+                        int y = et.getPosY();
+                        if (x == it.getPosX() && y == it.getPosY()) {
+                            aliens.erase(aliens.begin() + entPos);
+                            break;
                         }
-                        aliens.erase(aliens.begin()+k);
-                        bullets.erase(bullets.begin(), bullets.end());
-                          
-                
+                        entPos++;
                     }
-                    // Remove both pointers
-                    
+
+                    // Removes the pointer to the entity removed
+                    board.clearPos(it.getPosX(), it.getPosY());
+
+                    // Removes the bullet that collides with something
+                    bullets.erase(bullets.begin() + bulletPos);
+
+                    break;
                 }
+                bulletPos++;
             }
+
             this_thread::sleep_for(chrono::milliseconds(500));
         }
     }

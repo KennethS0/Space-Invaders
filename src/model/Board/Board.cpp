@@ -42,12 +42,9 @@ void Board::changePos(Entity& pEnt, int pOldX, int pOldY) {
     this->getBoard()[pEnt.getPosY()][pEnt.getPosX()] = &pEnt;
 }
 
-void Board::clearPos(Entity& pEnt, int pOldX, int pOldY) {
+void Board::clearPos(int pOldX, int pOldY) {
     // Removes the pointer
     this->getBoard()[pOldY][pOldX] = nullptr;
-
-    // Creates a pointer at a new position
-    this->getBoard()[pEnt.getPosY()][pEnt.getPosX()] = nullptr;
 }
 
 void Board::printBoard() {
