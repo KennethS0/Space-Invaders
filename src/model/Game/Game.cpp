@@ -144,9 +144,24 @@ void Game::bulletMovement() {
                 } else {
                     // Remove alien from vector
 
-                    // Remove bullet from vector
-
+                    if(board.getBoard()[it.getPosY()][it.getPosX()] != nullptr){
+                        board.clearPos(it, posX, posY);
+                        int k;
+                        for (auto &et: aliens){//E.T Movie Pun
+                            int X = et.getPosX();
+                            int Y = et.getPosY();
+                            if((X == posX) && (Y == posY)){
+                                break;
+                            }
+                            k++;    
+                        }
+                        aliens.erase(aliens.begin()+k);
+                        bullets.erase(bullets.begin(), bullets.end());
+                          
+                
+                    }
                     // Remove both pointers
+                    
                 }
             }
             this_thread::sleep_for(chrono::milliseconds(500));
@@ -176,24 +191,24 @@ void Game::startGame(bool inTerminal) {
 
 
 void Game::generateShots() {
-    for (auto &it: aliens) {
-        // Generating random boolean
-        srand(time(0));
-        bool randomCondition = rand() % 2;
+    // for (auto &it: aliens) {
+    //     // Generating random boolean
+    //     srand(time(0));
+    //     bool randomCondition = rand() % 2;
     
-        int posX = it.getPosX();
-        int posY = it.getPosY();
+    //     int posX = it.getPosX();
+    //     int posY = it.getPosY();
     
-        // Checks if theres an entity in front
-        if (board.getBoard()[posY + 1][posX] == nullptr && randomCondition) {
-            Bullet shot = it.shoot();
-            shot.setFromPlayer(false);
-            bullets.push_back(shot);
+    //     // Checks if theres an entity in front
+    //     if (board.getBoard()[posY + 1][posX] == nullptr && randomCondition) {
+    //         Bullet shot = it.shoot();
+    //         shot.setFromPlayer(false);
+    //         bullets.push_back(shot);
  
-            board.getBoard()[shot.getPosY()][shot.getPosX()] = &shot;
-            this_thread::sleep_for(chrono::milliseconds(100));
-        }
-    }
+    //         board.getBoard()[shot.getPosY()][shot.getPosX()] = &shot;
+    //         this_thread::sleep_for(chrono::milliseconds(100));
+    //     }
+    // }
 }
 
 
