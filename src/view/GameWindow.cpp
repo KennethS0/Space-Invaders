@@ -7,6 +7,7 @@
 #include <string>
 #include <fstream>
 #include "GameWindow.hpp"
+//#include "main.cpp"
 
 using namespace std;
 
@@ -21,14 +22,22 @@ using namespace std;
 void Game::run()
 {
     sf::RenderWindow gameWindow(sf::VideoMode(Screen_Width, Screen_Height), "Space Invaders");
+
     sf::Texture EnemyImage;
     sf::Texture PlayerImage;
+
+    sf::Texture BackgroundTexture;
+    sf::Sprite background;
+
     if(!PlayerImage.loadFromFile("Player.png")){
         std::cout << "Error Loading Image!" << std::endl;
     }
     if (!EnemyImage.loadFromFile("Enemy.png")){
         std::cout << "Error Loading Image!" << std::endl;
     }
+
+    
+
     EnemyImage.setSmooth(true);
     PlayerImage.setSmooth(true);
 
@@ -52,6 +61,19 @@ void Game::run()
     sf::Vector2u sizeOfWindow;
     sf::Vector2u sizeOfTexture;
     
+
+    if(!BackgroundTexture.loadFromFile("background.jpg")){
+        cout<<"";
+    } else{
+        sizeOfTexture = BackgroundTexture.getSize();
+        sizeOfWindow = gameWindow.getSize();
+
+        float ScaleX = (float) sizeOfWindow.x / sizeOfTexture.x;
+        float ScaleY = (float) sizeOfWindow.y / sizeOfTexture.y;
+
+        background.setTexture(BackgroundTexture);
+        background.setScale(ScaleX, ScaleY);
+    }
 
     //Scaling Functionalities
     sizeOfWindow = gameWindow.getSize();
@@ -125,6 +147,7 @@ void Game::run()
     Player.setPosition(x, y);
     //Window actions
     gameWindow.clear();
+    gameWindow.draw(background);
     gameWindow.draw(Enemy1);
     gameWindow.draw(Enemy2);
     gameWindow.draw(Enemy3);
