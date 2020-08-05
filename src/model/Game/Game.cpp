@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <thread>
+#include <algorithm>
 #include <cstdlib>
 #include <unistd.h>
 
@@ -17,6 +18,9 @@ Game::Game() {
             aliens.push_back(Alien(j, i));
         };
     };
+
+    // Randomizing aliens
+    random_shuffle(aliens.begin(), aliens.end());
 
     // Initializing Player
     player = Player(ROW_SIZE - 1, (int) (COLUMN_SIZE / 2 - 1), 3);
@@ -137,7 +141,6 @@ void Game::bulletMovement() {
                 
                 if (board.getBoard()[it.getPosY()][it.getPosX()] == nullptr) {
                     board.changePos(it, posX, posY);
-                
                 } else {
                     // Remove alien from vector
 
@@ -186,8 +189,9 @@ void Game::generateShots() {
             Bullet shot = it.shoot();
             shot.setFromPlayer(false);
             bullets.push_back(shot);
+ 
             board.getBoard()[shot.getPosY()][shot.getPosX()] = &shot;
-            this_thread::sleep_for(chrono::milliseconds(500));
+            this_thread::sleep_for(chrono::milliseconds(100));
         }
     }
 }
