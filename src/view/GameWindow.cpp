@@ -27,7 +27,7 @@ void Game::run()
     sf::Texture PlayerImage;
 
     sf::Texture BackgroundTexture;
-    sf::Sprite background;
+
 
     if(!PlayerImage.loadFromFile("Player.png")){
         std::cout << "Error Loading Image!" << std::endl;
@@ -50,7 +50,7 @@ void Game::run()
     int x;
     int y;
 
-
+    sf::Sprite background;
     sf::Sprite Enemy1(EnemyImage);
     sf::Sprite Enemy2(EnemyImage);
     sf::Sprite Enemy3(EnemyImage);
