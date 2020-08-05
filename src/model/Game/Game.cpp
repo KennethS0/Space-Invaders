@@ -8,6 +8,7 @@
 using namespace std;
 
 #define MAX_ENEMY_BULLETS 1
+#define ALIEN_DEATH 100
 
 Game::Game() {
     over = false;
@@ -24,7 +25,7 @@ Game::Game() {
     random_shuffle(aliens.begin(), aliens.end());
 
     // Initializing Player
-    player = Player(ROW_SIZE - 1, (int) (COLUMN_SIZE / 2 - 1), 3);
+    player = Player(ROW_SIZE - 1, (int) (COLUMN_SIZE / 2 - 1));
 
     // Initializing Board
     board = Board();
@@ -120,7 +121,7 @@ void Game::alienMovement() {
 
         generateShots();
        
-        this_thread::sleep_for(chrono::milliseconds(900));
+        this_thread::sleep_for(chrono::milliseconds(500));
         boundaries[0] = -1;
         boundaries[1] = -1;   
     }
@@ -141,7 +142,7 @@ void Game::bulletMovement() {
                     if (it.getPosY() < 0) {
                         board.clearPos(it.getPosX(), it.getPosY() + 1);
                         bullets.erase(bullets.begin() + bulletPos);
-                        continue;
+                        break;
                     }
 
                 } else {
@@ -149,7 +150,7 @@ void Game::bulletMovement() {
                     if (it.getPosY() > ROW_SIZE - 1) {
                         board.clearPos(it.getPosX(), it.getPosY() - 1);
                         bullets.erase(bullets.begin() + bulletPos);
-                        continue;
+                        break;
                     }
                 }
                 
@@ -166,6 +167,8 @@ void Game::bulletMovement() {
                         int y = et.getPosY();
                         if (x == it.getPosX() && y == it.getPosY()) {
                             aliens.erase(aliens.begin() + entPos);
+                            board.setScore(board.getScore() + ALIEN_DEATH);
+                    
                             break;
                         }
                         entPos++;
@@ -176,13 +179,13 @@ void Game::bulletMovement() {
 
                     // Removes the bullet that collides with something
                     bullets.erase(bullets.begin() + bulletPos);
-
+                    
                     break;
                 }
                 bulletPos++;
             }
 
-            this_thread::sleep_for(chrono::milliseconds(500));
+            this_thread::sleep_for(chrono::milliseconds(200));
         }
     }
 }

@@ -10,6 +10,7 @@ class Board {
     private:
         Entity*** board= new Entity** [ROW_SIZE];
         int score;    
+        int lives;
 
     public:
         Board();
@@ -23,6 +24,11 @@ class Board {
         void clearPos(int pOldX, int pOldY);
 
         Entity*** getBoard();
+
+        int getLives();
+        void setLives(int pLives);
+        void loseLife();
+        
 };
 
 

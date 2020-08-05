@@ -11,24 +11,14 @@ class Player: public Entity{
     public:
         Player();
 
-        Player(int pPosX, int pPosY, int pLives) : Entity (pPosX, pPosY) {
+        Player(int pPosX, int pPosY) : Entity (pPosX, pPosY) {
             this->setSymbol('M');
-            lives = pLives;
         };
 
         void moveLeft();
         void moveRight();
 
         Bullet shoot();
-
-        void loseLife();
-
-        // Setters
-        void setLives(int pLives);
-
-        // Getters
-        int getLives();
-
 };
 
 #endif

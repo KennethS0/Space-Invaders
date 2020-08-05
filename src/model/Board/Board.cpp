@@ -8,6 +8,7 @@ using namespace std;
 
 Board::Board() {
     score = 0;
+    lives = 3;
     // Declaring the array
     for (int i = 0; i < ROW_SIZE; i++) {
         board[i] = new Entity* [COLUMN_SIZE];
@@ -63,4 +64,18 @@ void Board::printBoard() {
         cout<< '|' << endl;
     };
     cout << "\nScore:" << score << endl;
+    cout << "Lives:" << lives << endl;
+}
+
+
+void Board::setLives(int pLives) {
+    this->lives = pLives;
+}
+
+int Board::getLives() {
+    return lives;
+}
+
+void Board::loseLife() {
+    this->setLives(this->getLives() - 1);
 }

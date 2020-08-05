@@ -21,15 +21,3 @@ void Player::moveRight() {
 Bullet Player::shoot() {
     return Bullet(this->getPosY() - 1, this->getPosX());
 }
-
-void Player::setLives(int pLives) {
-    this->lives = pLives;
-}
-
-int Player::getLives() {
-    return lives;
-}
-
-void Player::loseLife() {
-    this->setLives(this->getLives() - 1);
-}
