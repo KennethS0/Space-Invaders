@@ -67,8 +67,28 @@ int main()
         sf::Event event;
         while (window.pollEvent(event))
         {
-            if (event.type == sf::Event::Closed)
-                window.close();
+            switch(event.type){
+                case sf::Event::Closed:
+                    window.close();
+                    break;
+                case sf::Event::KeyPressed:
+                    switch(event.key.code)
+                    {
+                        case sf::Keyboard::Return:
+                            //Play Game
+                            cout << "Running Game..." << endl;
+                            window.close();
+                            break;
+                        case sf::Keyboard::Escape:
+                            //exit Game
+                            cout << "Quitting Game..." << endl;
+                            window.close();
+                            break;
+                default:
+                        break;
+                    }
+            }
+            
         }  
 
     //Window actions
