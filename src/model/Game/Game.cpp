@@ -9,6 +9,7 @@ using namespace std;
 
 #define MAX_ENEMY_BULLETS 1
 #define ALIEN_DEATH 100
+#define SHOT_DESTROYED 50
 
 Game::Game() {
     over = false;
@@ -160,6 +161,7 @@ void Game::bulletMovement() {
                     // Removes pointers from vector
                     board.clearPos(posX, posY);
                     // Entity* ent = board.getBoard()[it.getPosY()][it.getPosX()];
+                    bool alien = false;
 
                     int entPos = 0;
                     for (auto &et : aliens) {
@@ -168,12 +170,30 @@ void Game::bulletMovement() {
                         if (x == it.getPosX() && y == it.getPosY()) {
                             aliens.erase(aliens.begin() + entPos);
                             board.setScore(board.getScore() + ALIEN_DEATH);
-                    
+                            alien = true;
+
                             break;
                         }
                         entPos++;
                     }
 
+                    if (!alien){
+                    entPos = 0;
+                    for (auto &et : bullets) {
+                        int x = et.getPosX();
+                        int y = et.getPosY();
+                        if (x == it.getPosX() && y == it.getPosY()) {
+                            bullets.erase(bullets.begin() + entPos);
+                            board.setScore(board.getScore() + SHOT_DESTROYED);
+                    
+                            break;
+                        }
+                        entPos++;
+                    }
+                    }
+
+
+                    
                     // Removes the pointer to the entity removed
                     board.clearPos(it.getPosX(), it.getPosY());
 
