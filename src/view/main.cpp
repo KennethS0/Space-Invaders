@@ -38,9 +38,22 @@ int main()
     sf::Text subTitle;
     subTitle.setFont(MyFont);
     subTitle.setCharacterSize(15);
-    //subTitle.setStyle(sf::Text::Bold);
     subTitle.setString("Hecho por Fabio, Francisco y Kenneth");
     subTitle.setPosition(sf::Vector2f(180,150));
+
+    sf::Text play;
+    play.setFont(MyFont);
+    play.setCharacterSize(25);
+    play.setStyle(sf::Text::Bold);
+    play.setString("Presione enter para jugar");
+    play.setPosition(sf::Vector2f(120,250));
+
+    sf::Text leave;
+    leave.setFont(MyFont);
+    leave.setCharacterSize(25);
+    leave.setStyle(sf::Text::Bold);
+    leave.setString("Presione esc para salir");
+    leave.setPosition(sf::Vector2f(155,370));
     
     if(!BackgroundTexture.loadFromFile("background.jpg")){
         return -1;
@@ -96,6 +109,8 @@ int main()
     window.draw(background);
     window.draw(title);
     window.draw(subTitle);
+    window.draw(play);
+    window.draw(leave);
     window.display();
     }
     return 0;
