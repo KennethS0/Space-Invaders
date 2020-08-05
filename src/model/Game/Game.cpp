@@ -113,24 +113,8 @@ void Game::alienMovement() {
             board.getBoard()[it.getPosY()][it.getPosX()] = (Entity*) &it;
         };
 
-        for (auto it: aliens) {
-        // Generating random boolean
-        srand(time(0));
-        bool randomCondition = rand() % 2;
-
-        int posX = it.getPosX();
-        int posY = it.getPosY();
-
-        // Checks if theres an entity in front
-        if (board.getBoard()[posY + 1][posX] == nullptr && randomCondition) {
-            Bullet shot = it.shoot();
-            shot.setFromPlayer(false);
-            bullets.push_back(shot);
-
-            this_thread::sleep_for(chrono::milliseconds(100));
-        }
-    }
-
+        generateShots();
+       
         this_thread::sleep_for(chrono::milliseconds(900));
         boundaries[0] = -1;
         boundaries[1] = -1;   
@@ -189,7 +173,23 @@ void Game::startGame(bool inTerminal) {
 
 
 void Game::generateShots() {
-
+    for (auto &it: aliens) {
+        // Generating random boolean
+        srand(time(0));
+        bool randomCondition = rand() % 2;
+    
+        int posX = it.getPosX();
+        int posY = it.getPosY();
+    
+        // Checks if theres an entity in front
+        if (board.getBoard()[posY + 1][posX] == nullptr && randomCondition) {
+            Bullet shot = it.shoot();
+            shot.setFromPlayer(false);
+            bullets.push_back(shot);
+            board.getBoard()[shot.getPosY()][shot.getPosX()] = &shot;
+            this_thread::sleep_for(chrono::milliseconds(500));
+        }
+    }
 }
 
 
