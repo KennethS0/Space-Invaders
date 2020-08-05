@@ -102,6 +102,10 @@ void Game::alienMovement() {
         if (boundaries[0] == 0 || boundaries[1] == COLUMN_SIZE - 1) {
             for (auto &it: aliens) {
                 it.moveDown();
+                if (it.getPosY() == ROW_SIZE - 1) {
+                    over = true;
+                    return;
+                }
             }
             direction = !direction;
         }
