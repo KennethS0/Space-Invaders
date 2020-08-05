@@ -160,8 +160,18 @@ void Game::bulletMovement() {
                 } else {
                     // Removes pointers from vector
                     board.clearPos(posX, posY);
-                    // Entity* ent = board.getBoard()[it.getPosY()][it.getPosX()];
+
                     bool alien = false;
+
+                    if (posY == ROW_SIZE - 2) {
+                        board.loseLife();
+                        // Removes the bullet that collides with something
+                        bullets.erase(bullets.begin() + bulletPos);
+                        if (board.getLives() == 0) {
+                            over = true;
+                        }
+                        break;
+                    }
 
                     int entPos = 0;
                     for (auto &et : aliens) {
@@ -178,22 +188,19 @@ void Game::bulletMovement() {
                     }
 
                     if (!alien){
-                    entPos = 0;
-                    for (auto &et : bullets) {
-                        int x = et.getPosX();
-                        int y = et.getPosY();
-                        if (x == it.getPosX() && y == it.getPosY()) {
-                            bullets.erase(bullets.begin() + entPos);
-                            board.setScore(board.getScore() + SHOT_DESTROYED);
+                        entPos = 0;
+                        for (auto &et : bullets) {
+                            int x = et.getPosX();
+                            int y = et.getPosY();
+                            if (x == it.getPosX() && y == it.getPosY()) {
+                                bullets.erase(bullets.begin() + entPos);
+                                board.setScore(board.getScore() + SHOT_DESTROYED);
                     
-                            break;
+                                break;
+                            }
+                            entPos++;
                         }
-                        entPos++;
-                    }
-                    }
-
-
-                    
+                    }                    
                     // Removes the pointer to the entity removed
                     board.clearPos(it.getPosX(), it.getPosY());
 
