@@ -27,6 +27,8 @@ class Game {
         void bulletMovement();
         void movePlayer();
 
+        void generateShots();
+
         void setOver(bool pOver);
         bool isOver();
 };

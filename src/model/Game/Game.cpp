@@ -67,7 +67,7 @@ void Game::movePlayer() {
 
 void Game::alienMovement() {
     // 0 Leftmost
-    // 0 Rightmost
+    // 1 Rightmost
     int boundaries[2] = {-1, -1};
 
     // false -> (move right)
@@ -113,6 +113,24 @@ void Game::alienMovement() {
             board.getBoard()[it.getPosY()][it.getPosX()] = (Entity*) &it;
         };
 
+        for (auto it: aliens) {
+        // Generating random boolean
+        srand(time(0));
+        bool randomCondition = rand() % 2;
+
+        int posX = it.getPosX();
+        int posY = it.getPosY();
+
+        // Checks if theres an entity in front
+        if (board.getBoard()[posY + 1][posX] == nullptr && randomCondition) {
+            Bullet shot = it.shoot();
+            shot.setFromPlayer(false);
+            bullets.push_back(shot);
+
+            this_thread::sleep_for(chrono::milliseconds(100));
+        }
+    }
+
         this_thread::sleep_for(chrono::milliseconds(900));
         boundaries[0] = -1;
         boundaries[1] = -1;   
@@ -138,17 +156,13 @@ void Game::bulletMovement() {
                 
                 } else {
                     // Remove alien from vector
-                    if(board.getBoard()[it.getPosY()][it.getPosX()] != nullptr){
-                        (board.getBoard()[it.getPosY()][it.getPosX()] = nullptr);
-                        board.clearPos(it, posX, posY);
-                       
-                    }
+
                     // Remove bullet from vector
 
                     // Remove both pointers
                 }
             }
-            this_thread::sleep_for(chrono::milliseconds(100));
+            this_thread::sleep_for(chrono::milliseconds(500));
         }
     }
 }
@@ -171,6 +185,11 @@ void Game::startGame(bool inTerminal) {
         this_thread::sleep_for(chrono::milliseconds(37));
         system("clear");
     }   
+}
+
+
+void Game::generateShots() {
+
 }
 
 
