@@ -246,6 +246,11 @@ void Game::generateShots() {
         int posX = it.getPosX();
         int posY = it.getPosY();
     
+        if (aliens.size() == 1) {
+            this_thread::sleep_for(chrono::milliseconds(1000));
+        }
+
+
         // Checks if theres an entity in front
         if (board.getBoard()[posY + 1][posX] == nullptr && randomCondition) {
             Bullet shot = it.shoot();
