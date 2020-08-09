@@ -29,6 +29,11 @@ void Game::run()
 
     sf::Texture BackgroundTexture;
 
+    sf::Font MyFont;
+    if(!MyFont.loadFromFile("SPACEMAN.TTF")){
+        std::cout << "Error Loading Font!" << std::endl;
+    }
+
 
     if(!PlayerImage.loadFromFile("Ship.png")){
         std::cout << "Error Loading Image!" << std::endl;
@@ -72,13 +77,37 @@ void Game::run()
         }
         Board.push_back(Row);
     }
-    for(int i = 0; i < ROW_NUM-1; i++){
+    for(int i = 0; i < ROW_NUM; i++){
         for(int j = 0; j < COLUMN_NUM; j++){
-            Board[i][j].setTexture(PlayerImage);
+            Board[i][j].setTexture(EnemyImage);
             Board[i][j].setScale(0.1, 0.1);
         }
 
     }
+    for(int j = 0; j < COLUMN_NUM; j++){
+        Board[14][j].setColor(sf::Color::Transparent);
+    }
+    int scoreNum = 123456; // the score to print
+    
+    string scoreStr = to_string(scoreNum);
+
+    sf::Text Score;
+    Score.setFont(MyFont);
+    Score.setCharacterSize(25);
+    Score.setStyle(sf::Text::Bold);
+    Score.setString("Score: " + scoreStr);
+    Score.setPosition(sf::Vector2f(20,655));
+
+    int livesNum = 3;
+
+    string livesStr = to_string(livesNum);
+
+    sf::Text Lives;
+    Lives.setFont(MyFont);
+    Lives.setCharacterSize(25);
+    Lives.setStyle(sf::Text::Bold);
+    Lives.setString("Lives: " + livesStr);
+    Lives.setPosition(sf::Vector2f(700,655));
 
     
     sf::Vector2u sizeOfWindow;
@@ -157,7 +186,10 @@ void Game::run()
             gameWindow.draw(Board[i][j]);
         }
     }
+    gameWindow.draw(Score);
+    gameWindow.draw(Lives);
     gameWindow.display();
+
     }
 	// Leaving the scope of 'Application' will cleanup the engine
 }
