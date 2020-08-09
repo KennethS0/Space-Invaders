@@ -12,11 +12,10 @@
 using namespace std;
 
 //General Variables Definition
-#define Screen_Width 900
-#define Screen_Height 600
-
-#define Sprite_Speed 1
-
+#define Screen_Width 900 // 20 Colummns
+#define Screen_Height 720 // 16 Rows
+#define COLUMN_NUM 20
+#define ROW_NUM 16
 
 
 void Game::run()
@@ -25,6 +24,8 @@ void Game::run()
 
     sf::Texture EnemyImage;
     sf::Texture PlayerImage;
+    sf::Texture BulletImage;
+
 
     sf::Texture BackgroundTexture;
 
@@ -35,65 +36,53 @@ void Game::run()
     if (!EnemyImage.loadFromFile("Enemy.png")){
         std::cout << "Error Loading Image!" << std::endl;
     }
-
-    
-
+    //Needs loadFromFile for Bullet Image
     EnemyImage.setSmooth(true);
     PlayerImage.setSmooth(true);
 
 
-    bool Up = false;
-    bool Down = false;
-    bool Left = false;
-    bool Right = false;
-
-    int x;
-    int y;
-
-    sf::Sprite background;
-    sf::Sprite Enemy1(EnemyImage);
-    sf::Sprite Enemy2(EnemyImage);
-    sf::Sprite Enemy3(EnemyImage);
-    sf::Sprite Enemy4(EnemyImage);
-    sf::Sprite Player(PlayerImage);
+    vector <sf::Texture> gameObjects;
+    gameObjects.push_back(PlayerImage);
+    gameObjects.push_back(EnemyImage);
 
 
+    vector<vector<sf::Sprite>> Board;
+
+    int x = 0;
+    int y = -45;
+    for(int i = 0; i<ROW_NUM; i++)
+    {
+        y += 45;
+        vector<sf::Sprite> Row;
+        for(int j = 0; j<COLUMN_NUM; j++)
+        {
+            sf::Sprite nullSprite;
+            nullSprite.setPosition(x, y);
+            nullSprite.setTexture(gameObjects[1]);
+            //nullSprite.scale();
+            Row.push_back(nullSprite);
+            x += 45;
+        }
+        Board.push_back(Row);
+    }
+    
+    
     sf::Vector2u sizeOfWindow;
     sf::Vector2u sizeOfTexture;
     
 
-    if(!BackgroundTexture.loadFromFile("background.jpg")){
-        cout<<"error";
-    } else{
-        sizeOfTexture = BackgroundTexture.getSize();
-        sizeOfWindow = gameWindow.getSize();
+    // if(!BackgroundTexture.loadFromFile("background.jpg")){
+    //     cout<<"error";
+    // } else{
+    //     sizeOfTexture = BackgroundTexture.getSize();
+    //     sizeOfWindow = gameWindow.getSize();
 
-        float ScaleX = (float) sizeOfWindow.x / sizeOfTexture.x;
-        float ScaleY = (float) sizeOfWindow.y / sizeOfTexture.y;
+    //     float ScaleX = (float) sizeOfWindow.x / sizeOfTexture.x;
+    //     float ScaleY = (float) sizeOfWindow.y / sizeOfTexture.y;
 
-        background.setTexture(BackgroundTexture);
-        background.setScale(ScaleX, ScaleY);
-    }
-
-    //Scaling Functionalities
-    sizeOfWindow = gameWindow.getSize();
-
-    float ScaleX = 0.1;
-	float ScaleY = 0.1; 
-
-    Enemy1.setScale(ScaleX, ScaleY);
-    Enemy2.setScale(ScaleX, ScaleY);
-    Enemy3.setScale(ScaleX, ScaleY);
-    Enemy4.setScale(ScaleX, ScaleY);
-    Player.setScale(ScaleX, ScaleY);
-    
-    Enemy1.setPosition(100,0);
-    Enemy2.setPosition(160,0);
-    Enemy3.setPosition(220,0);
-    Enemy4.setPosition(280,0);
-
-
-    
+    //     sf::Sprite background(BackgroundTexture);
+    //     background.setScale(ScaleX, ScaleY);
+    // }
 
 
     //Main Window Loop
@@ -103,56 +92,56 @@ void Game::run()
         while (gameWindow.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
-                gameWindow.close();
-            if (event.type == sf::Event::KeyPressed){
-                switch(event.key.code){
-                    case sf::Keyboard::W:
-                        Up = true;
-                        break;
-                    case sf::Keyboard::S:
-                        Down = true;
-                        break;
-                    case sf::Keyboard::A:
-                        Left = true;
-                        break;
-                    case sf::Keyboard::D:
-                        Right = true;
-                        break;
-                }
-            }
+               gameWindow.close();
+            // if (event.type == sf::Event::KeyPressed){
+            //     switch(event.key.code){
+            //         case sf::Keyboard::W:
+            //             Up = true;
+            //             break;
+            //         case sf::Keyboard::S:
+            //             Down = true;
+            //             break;
+            //         case sf::Keyboard::A:
+            //             Left = true;
+            //             break;
+            //         case sf::Keyboard::D:
+            //             Right = true;
+            //             break;
+            //     }
+            // }
 
-            if (event.type == sf::Event::KeyReleased){
-                switch(event.key.code){
-                    case sf::Keyboard::W:
-                        Up = false;
-                        break;
-                    case sf::Keyboard::S:
-                        Down = false;
-                        break;
-                    case sf::Keyboard::A:
-                        Left = false;
-                        break;
-                    case sf::Keyboard::D:
-                        Right = false;
-                        break;      
-                }
-            }
+            // if (event.type == sf::Event::KeyReleased){
+            //     switch(event.key.code){
+            //         case sf::Keyboard::W:
+            //             Up = false;
+            //             break;
+            //         case sf::Keyboard::S:
+            //             Down = false;
+            //             break;
+            //         case sf::Keyboard::A:
+            //             Left = false;
+            //             break;
+            //         case sf::Keyboard::D:
+            //             Right = false;
+            //             break;      
+            //     }
+            // }
         }  
 
-       // Update coordinates
-        if (Left) x-=Sprite_Speed;
-        if (Right) x+=Sprite_Speed;
-        if (Up) y-=Sprite_Speed;
-        if (Down) y+=Sprite_Speed;
-    Player.setPosition(x, y);
+    //    // Update coordinates
+    //     if (Left) x-=Sprite_Speed;
+    //     if (Right) x+=Sprite_Speed;
+    //     if (Up) y-=Sprite_Speed;
+    //     if (Down) y+=Sprite_Speed;
+    //Player.setPosition(x, y);
     //Window actions
     gameWindow.clear();
-    gameWindow.draw(background);
-    gameWindow.draw(Enemy1);
-    gameWindow.draw(Enemy2);
-    gameWindow.draw(Enemy3);
-    gameWindow.draw(Enemy4);
-    gameWindow.draw(Player);
+    for(int i = 0; i<ROW_NUM; i++){
+        for(int j = 0; j<COLUMN_NUM; j++)
+        {
+            gameWindow.draw(Board[i][j]);
+        }
+    }
     gameWindow.display();
     }
 	// Leaving the scope of 'Application' will cleanup the engine
