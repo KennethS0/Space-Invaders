@@ -10,6 +10,13 @@ using namespace std;
 #define MAX_ENEMY_BULLETS 1
 #define ALIEN_DEATH 100
 #define SHOT_DESTROYED 50
+#define ALIEN_SYMBOL 'U'
+#define BULLET_SYMBOL '*'
+
+
+#define DRAW_SPEED 37
+#define ALIEN_MOVE_SPEED 600
+#define BULLET_SPEED 200
 
 Game::Game() {
     over = false;
@@ -119,7 +126,7 @@ void Game::alienMovement() {
 
         generateShots();
        
-        this_thread::sleep_for(chrono::milliseconds(600));
+        this_thread::sleep_for(chrono::milliseconds(ALIEN_MOVE_SPEED));
         boundaries[0] = -1;
         boundaries[1] = -1;   
     }
@@ -155,10 +162,11 @@ void Game::bulletMovement() {
                     board.changePos(it, posX, posY);
 
                 } else {
+
                     // Removes pointers from board
                     board.clearPos(posX, posY);
 
-                    bool alien = false;
+                    char symbol = board.getBoard()[it.getPosY()][it.getPosX()]->getSymbol();
 
                     if (posY == ROW_SIZE - 2) {
                         board.loseLife();
@@ -170,46 +178,27 @@ void Game::bulletMovement() {
                         break;
                     }
 
-                    int entPos = 0;
-                    for (auto &et : aliens) {
-                        int x = et.getPosX();
-                        int y = et.getPosY();
-                        if (x == it.getPosX() && y == it.getPosY()) {
-                            aliens.erase(aliens.begin() + entPos);
-                            board.setScore(board.getScore() + ALIEN_DEATH);
-                            alien = true;
+                    if (symbol == ALIEN_SYMBOL) {
+                        checkVector(aliens, it.getPosX(), it.getPosY(), ALIEN_DEATH);
+                     } else if (symbol == BULLET_SYMBOL){
+                        checkVector(bullets, it.getPosX(), it.getPosY(), SHOT_DESTROYED);
+                    }       
 
-                            break;
-                        }
-                        entPos++;
-                    }
 
-                    if (!alien){
-                        entPos = 0;
-                        for (auto &et : bullets) {
-                            int x = et.getPosX();
-                            int y = et.getPosY();
-                            if (x == it.getPosX() && y == it.getPosY()) {
-                                bullets.erase(bullets.begin() + entPos);
-                                board.setScore(board.getScore() + SHOT_DESTROYED);
-                    
-                                break;
-                            }
-                            entPos++;
-                        }
-                    }                    
                     // Removes the pointer to the entity removed
                     board.clearPos(it.getPosX(), it.getPosY());
 
+
                     // Removes the bullet that collides with something
                     bullets.erase(bullets.begin() + bulletPos);
-                    
+
+
                     break;
                 }
                 bulletPos++;
             }
 
-            this_thread::sleep_for(chrono::milliseconds(200));
+            this_thread::sleep_for(chrono::milliseconds(BULLET_SPEED));
         }
     }
 }
@@ -229,9 +218,24 @@ void Game::startGame(bool inTerminal) {
     while (!over && inTerminal) {
         // Keeps refreshing the screen
         board.printBoard();
-        this_thread::sleep_for(chrono::milliseconds(37));
+        this_thread::sleep_for(chrono::milliseconds(DRAW_SPEED));
         system("clear");
     }   
+}
+
+template <class T>
+void Game::checkVector(T &pVector, int pPosX, int pPosY, int pScore){
+    int entPos = 0;
+    for (auto &et : pVector) {
+        int x = et.getPosX();
+        int y = et.getPosY();
+        if (x == pPosX && y == pPosY) {
+            pVector.erase(pVector.begin() + entPos);
+            board.setScore(board.getScore() + pScore);
+            break;
+        }
+    entPos++;
+    }
 }
 
 

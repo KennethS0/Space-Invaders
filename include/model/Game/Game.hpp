@@ -33,6 +33,9 @@ class Game {
         template <class T>
         void deleteEntity(int posX, int posY, T &pVector, int pVectorPos);
 
+        template <class T>
+        void checkVector(T &pVector, int pPosX, int pPosY, int pScore);
+
         void setOver(bool pOver);
         bool isOver();
 };
