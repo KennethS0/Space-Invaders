@@ -30,20 +30,25 @@ void Game::run()
     sf::Texture BackgroundTexture;
 
 
-    if(!PlayerImage.loadFromFile("Player.png")){
+    if(!PlayerImage.loadFromFile("Ship.png")){
         std::cout << "Error Loading Image!" << std::endl;
     }
     if (!EnemyImage.loadFromFile("Enemy.png")){
         std::cout << "Error Loading Image!" << std::endl;
     }
+    if (!BulletImage.loadFromFile("Bullet.png")){
+        std::cout << "Error Loading Image!" << std::endl;
+    }
     //Needs loadFromFile for Bullet Image
     EnemyImage.setSmooth(true);
     PlayerImage.setSmooth(true);
+    BulletImage.setSmooth(true);
 
 
     vector <sf::Texture> gameObjects;
     gameObjects.push_back(PlayerImage);
     gameObjects.push_back(EnemyImage);
+    gameObjects.push_back(BulletImage);
 
 
     vector<vector<sf::Sprite>> Board;
@@ -69,7 +74,7 @@ void Game::run()
     }
     for(int i = 0; i < ROW_NUM-1; i++){
         for(int j = 0; j < COLUMN_NUM; j++){
-            Board[i][j].setTexture(EnemyImage);
+            Board[i][j].setTexture(PlayerImage);
             Board[i][j].setScale(0.1, 0.1);
         }
 
