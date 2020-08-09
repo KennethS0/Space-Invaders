@@ -18,7 +18,7 @@ using namespace std;
 #define ROW_NUM 15
 
 
-void Game::run()
+void GameWindow::run()
 {
     sf::RenderWindow gameWindow(sf::VideoMode(Screen_Width, Screen_Height), "Space Invaders");
 

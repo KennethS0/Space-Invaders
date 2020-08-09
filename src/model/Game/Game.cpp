@@ -199,9 +199,11 @@ void Game::bulletMovement() {
 
 void Game::startGame(bool inTerminal) {
     // Initial game set up
-    thread playerMovement(&Game::movePlayer, this);
-    playerMovement.detach();
-
+    if (inTerminal) {
+        thread playerMovement(&Game::movePlayer, this);
+        playerMovement.detach();
+    }
+    
     thread alienMovement(&Game::alienMovement, this);
     alienMovement.detach();
 

@@ -2,7 +2,7 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
-class Game
+class GameWindow
 {
 public:
 	void run();
