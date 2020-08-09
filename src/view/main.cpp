@@ -12,14 +12,14 @@
 using namespace std;
 
 //General Variables Definition
-#define Screen_Width 900
-#define Screen_Height 600
+#define Screen_Width_Menu 900
+#define Screen_Height_Menu 600
 
 //Main function of the program
 int main()
 {
     
-    sf::RenderWindow window(sf::VideoMode(Screen_Width, Screen_Height), "Space Invaders");
+    sf::RenderWindow window(sf::VideoMode(Screen_Width_Menu, Screen_Height_Menu), "Space Invaders");
     sf::Texture BackgroundTexture;
     sf::Sprite background;
 

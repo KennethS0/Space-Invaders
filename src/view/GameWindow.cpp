@@ -12,10 +12,10 @@
 using namespace std;
 
 //General Variables Definition
-#define Screen_Width 900 // 20 Colummns
+#define Screen_Width 920 // 20 Colummns
 #define Screen_Height 720 // 16 Rows
 #define COLUMN_NUM 20
-#define ROW_NUM 16
+#define ROW_NUM 15
 
 
 void Game::run()
@@ -50,22 +50,31 @@ void Game::run()
 
     int x = 0;
     int y = -45;
+
+
     for(int i = 0; i<ROW_NUM; i++)
     {
         y += 45;
+        x = 0;
         vector<sf::Sprite> Row;
         for(int j = 0; j<COLUMN_NUM; j++)
         {
             sf::Sprite nullSprite;
             nullSprite.setPosition(x, y);
-            nullSprite.setTexture(gameObjects[1]);
             //nullSprite.scale();
             Row.push_back(nullSprite);
             x += 45;
         }
         Board.push_back(Row);
     }
-    
+    for(int i = 0; i < ROW_NUM-1; i++){
+        for(int j = 0; j < COLUMN_NUM; j++){
+            Board[i][j].setTexture(EnemyImage);
+            Board[i][j].setScale(0.1, 0.1);
+        }
+
+    }
+
     
     sf::Vector2u sizeOfWindow;
     sf::Vector2u sizeOfTexture;
@@ -139,6 +148,7 @@ void Game::run()
     for(int i = 0; i<ROW_NUM; i++){
         for(int j = 0; j<COLUMN_NUM; j++)
         {
+            //This is where the validation whether is an enemy, a bullet or player is set.
             gameWindow.draw(Board[i][j]);
         }
     }
