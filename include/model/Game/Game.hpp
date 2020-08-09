@@ -28,7 +28,7 @@ class Game {
         void movePlayer();
 
         void generateShots();
-        void spawnAliens();
+        void newLevel();
 
         template <class T>
         void deleteEntity(int posX, int posY, T &pVector, int pVectorPos);

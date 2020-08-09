@@ -79,7 +79,7 @@ void Game::alienMovement() {
     while (!over) {
 
         if(aliens.size() == 0) {
-            spawnAliens();
+            newLevel();
         }
 
         // Finds the boundaries
@@ -157,15 +157,11 @@ void Game::bulletMovement() {
                     }
                 }
 
-
                 if (board.getBoard()[it.getPosY()][it.getPosX()] == nullptr) {
                     board.changePos(it, posX, posY);
-
                 } else {
-
                     // Removes pointers from board
                     board.clearPos(posX, posY);
-
                     char symbol = board.getBoard()[it.getPosY()][it.getPosX()]->getSymbol();
 
                     if (posY == ROW_SIZE - 2) {
@@ -184,14 +180,11 @@ void Game::bulletMovement() {
                         checkVector(bullets, it.getPosX(), it.getPosY(), SHOT_DESTROYED);
                     }       
 
-
                     // Removes the pointer to the entity removed
                     board.clearPos(it.getPosX(), it.getPosY());
 
-
                     // Removes the bullet that collides with something
                     bullets.erase(bullets.begin() + bulletPos);
-
 
                     break;
                 }
@@ -222,6 +215,7 @@ void Game::startGame(bool inTerminal) {
         system("clear");
     }   
 }
+
 
 template <class T>
 void Game::checkVector(T &pVector, int pPosX, int pPosY, int pScore){
@@ -273,13 +267,18 @@ void Game::deleteEntity(int posX, int posY, T &pVector, int pVectorPos) {
 }   
 
 
-void Game::spawnAliens() {
+void Game::newLevel() {
     // Initializing aliens
-    for (int i = 3; i < COLUMN_SIZE - 3; i++) {
+    for (int i = 3; i < COLUMN_SIZE - 7; i++) {
 
         for (int j = 0; j < 4; j++) {
             aliens.push_back(Alien(j, i));
         };
+    };
+
+    // Adds one life to the player if they lost one
+    if (board.getLives() < 3) {
+        board.setLives(board.getLives() + 1);
     };
 
     // Randomizing aliens
