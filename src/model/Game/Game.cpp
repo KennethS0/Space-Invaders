@@ -119,7 +119,7 @@ void Game::alienMovement() {
 
         generateShots();
        
-        this_thread::sleep_for(chrono::milliseconds(500));
+        this_thread::sleep_for(chrono::milliseconds(600));
         boundaries[0] = -1;
         boundaries[1] = -1;   
     }
@@ -138,24 +138,24 @@ void Game::bulletMovement() {
                 if (it.isFromPlayer()) {
                     it.moveUp();
                     if (it.getPosY() < 0) {
-                        board.clearPos(it.getPosX(), it.getPosY() + 1);
-                        bullets.erase(bullets.begin() + bulletPos);
+                        deleteEntity(it.getPosX(), it.getPosY() + 1, bullets, bulletPos);
                         break;
                     }
 
                 } else {
                     it.moveDown();
                     if (it.getPosY() > ROW_SIZE - 1) {
-                        board.clearPos(it.getPosX(), it.getPosY() - 1);
-                        bullets.erase(bullets.begin() + bulletPos);
+                        deleteEntity(it.getPosX(), it.getPosY() - 1, bullets, bulletPos);
                         break;
                     }
                 }
-                
+
+
                 if (board.getBoard()[it.getPosY()][it.getPosX()] == nullptr) {
                     board.changePos(it, posX, posY);
+
                 } else {
-                    // Removes pointers from vector
+                    // Removes pointers from board
                     board.clearPos(posX, posY);
 
                     bool alien = false;
@@ -262,9 +262,11 @@ void Game::generateShots() {
 }
 
 
-void Game::setOver(bool pOver) {
-    over = pOver;
-}
+template <class T>
+void Game::deleteEntity(int posX, int posY, T &pVector, int pVectorPos) {
+    board.clearPos(posX, posY);
+    pVector.erase(pVector.begin() + pVectorPos);
+}   
 
 
 void Game::spawnAliens() {
@@ -279,6 +281,12 @@ void Game::spawnAliens() {
     // Randomizing aliens
     random_shuffle(aliens.begin(), aliens.end());
 }
+
+
+void Game::setOver(bool pOver) {
+    over = pOver;
+}
+
 
 bool Game::isOver() {
     return over;

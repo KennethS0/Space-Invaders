@@ -30,6 +30,9 @@ class Game {
         void generateShots();
         void spawnAliens();
 
+        template <class T>
+        void deleteEntity(int posX, int posY, T &pVector, int pVectorPos);
+
         void setOver(bool pOver);
         bool isOver();
 };
