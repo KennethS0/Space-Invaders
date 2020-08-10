@@ -81,7 +81,7 @@ GameController::GameController() {
                         si_window.close();
                     }
                 }
-                refreshGame(si_window);
+                // refreshGame(si_window);
             }
         }
     }

@@ -1,6 +1,6 @@
 #include <model/Game/Game.hpp>
-// #include <view/GameWindow.hpp>
-// #include <controller/GameController.hpp>
+#include <view/GameWindow.hpp>
+#include <controller/GameController.hpp>
 
 #include <program.hpp>
 #include <iostream>
@@ -14,9 +14,11 @@ using namespace std;
 int main()
 {
    // ===== FOR GUI GAME =====
-   // GameController controller = GameController();
+   GameController controller = GameController();
 
    // ===== FOR COMMAND LINE GAME ======
+
+   // Lines from 24 through 36, and lines 41 through 42 were obtained from: https://shtrom.ssji.net/skb/getc.html
 
    // Disables buffered input
    struct termios old_tio, new_tio;
