@@ -1,6 +1,6 @@
 #include <model/Game/Game.hpp>
 #include <view/GameWindow.hpp>
-// #include <controller/GameController.hpp>
+#include <controller/GameController.hpp>
 
 #include <program.hpp>
 #include <iostream>
@@ -16,6 +16,12 @@ int main()
    // ===== FOR GUI GAME =====
    GameWindow window = GameWindow();
    window.run();
+
+   Game si = Game();
+
+   GameController controller = GameController(si ,window);
+
+   
 
    // ===== FOR COMMAND LINE GAME ======
 

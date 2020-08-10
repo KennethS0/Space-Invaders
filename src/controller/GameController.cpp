@@ -3,16 +3,21 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
+#include <iostream>
+using namespace std;
+
 GameController::GameController(Game pModel, GameWindow pView) {
     model = pModel;
     view = pView;
+
+    while (!view.started){}
 
     // Detach a thread for player movement
     thread playerMovement(&GameController::movePlayer, this);
     playerMovement.detach();
 
     // Start the game (not in terminal)
-    model.startGame(false);
+    model.startGame(true);
 
     // Refreshes the game on the screen
     while (!model.isOver()) {
@@ -36,23 +41,17 @@ void GameController::movePlayer() {
     // sf::Event event;
     
     // while(!model.isOver()) {
-    //      if (event.type == sf::Event::KeyPressed){
-    //             switch(event.key.code){
-    //                 case sf::Keyboard::W:
-    //                     // Tripas aqui
-    //                     break;
-    //                 case sf::Keyboard::S:
-    //                     // Tripas aqui tambien
-    //                     break;
-    //                 case sf::Keyboard::A:
-    //                     // Y aqui
-    //                     break;
-    //                 case sf::Keyboard::D:
-    //                     // Aqui as well
-    //                     break;
-    //             }
+    //     if (event.type == sf::Event::KeyPressed){
+    //         if (event.key.code == sf::Keyboard::S) {
+    //             cout<<"S"<<endl;
     //         }
+    //         else if (event.key.code == sf::Keyboard::A) {
+    //             cout<<"A"<<endl;
+    //         }
+    //         else if (event.key.code == sf::Keyboard::Space) {
+    //             cout<<"SPACE"<<endl;
+    //         }
+
+    //     }
     // }
-
-
 }

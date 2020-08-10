@@ -5,7 +5,12 @@
 
 class GameWindow
 {
+	private:
+
+
 	public:
+		bool started = false;
+
 		void run();
 
 		void loadMenu(sf::RenderWindow& pWindow);

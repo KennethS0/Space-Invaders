@@ -3,7 +3,7 @@
 #ifndef BOARD_HPP
 #define BOARD_HPP
 
-#define COLUMN_SIZE 15
+#define COLUMN_SIZE 20
 #define ROW_SIZE 15
 
 class Board {

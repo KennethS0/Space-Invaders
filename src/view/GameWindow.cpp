@@ -16,9 +16,6 @@ using namespace std;
 #define COLUMN_NUM 20
 #define ROW_NUM 15
 
-#define Screen_Width_Menu 900
-#define Screen_Height_Menu 600
-
 void GameWindow::run(){
     sf::RenderWindow gameWindow(sf::VideoMode(Screen_Width, Screen_Height), "Space Invaders");
     loadMenu(gameWindow);
@@ -37,6 +34,7 @@ void GameWindow::run(){
                 else if (event.key.code == sf::Keyboard::Return) {
                     loadGame(gameWindow);
                     gameWindow.display();
+                    started = true;
 
                 }
 
@@ -197,15 +195,7 @@ void GameWindow::loadGame(sf::RenderWindow& pWindow) {
     Lives.setPosition(sf::Vector2f(700,655));
 
 
-    //Main Window Loop
-    
-    for(int i = 0; i<ROW_NUM; i++){
-        for(int j = 0; j<COLUMN_NUM; j++)
-        {
-            //This is where the validation whether is an enemy, a bullet or player is set.
-            pWindow.draw(Board[i][j]);
-        }
-    }
     pWindow.draw(Score);
     pWindow.draw(Lives);
 }
+
