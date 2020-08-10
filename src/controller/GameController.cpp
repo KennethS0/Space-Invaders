@@ -18,5 +18,24 @@ GameController::GameController() {
     GameWindow view = GameWindow();
 
     view.loadMenu(si_window);
-    view.run(si_window);
+
+    while (si_window.isOpen()){
+        sf::Event event;
+        while (si_window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed) si_window.close();
+
+            if (event.type == sf::Event::KeyPressed) {
+                // ESC
+                if (event.key.code == sf::Keyboard::Escape) {
+                    si_window.close();
+                }
+                // ENTER (LOADS NEW WINDOW)
+                else if (event.key.code == sf::Keyboard::Return) {
+                    view.loadGame(si_window);
+                    si_window.display();
+
+                }
+            }
+        }
+    }
 }
