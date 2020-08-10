@@ -48,6 +48,10 @@ GameController::GameController() {
                 }
             } else {
                 // Game logic and redrawing
+                if(model.isOver()) {
+                    si_window.close();
+                } 
+
                 if (event.type == sf::Event::KeyPressed) {
                     int x = model.getPlayer().getPosX();
 
@@ -79,6 +83,8 @@ GameController::GameController() {
 
 
 void GameController::refreshGame(sf::RenderWindow& pWindow) {
+    cout << "qui xd" << endl;
+    
     // Loads image files
     sf::Texture EnemyImage;
     sf::Texture PlayerImage;
@@ -99,7 +105,9 @@ void GameController::refreshGame(sf::RenderWindow& pWindow) {
     PlayerImage.setSmooth(true);
     BulletImage.setSmooth(true);
     
-    pWindow.clear();        
+
+    while (!model.isOver()){
+        pWindow.clear();        
 
         // Loop through model
         for (int i = 0; i < ROW_SIZE; i++) {
@@ -118,7 +126,8 @@ void GameController::refreshGame(sf::RenderWindow& pWindow) {
                 pWindow.draw(view.getBoard()[i][j]);
             };
         };
-        // this_thread::sleep_for(chrono::milliseconds(50));
+        this_thread::sleep_for(chrono::milliseconds(50));
     
-    pWindow.display();
-    }   
+        pWindow.display();
+    }
+}   
