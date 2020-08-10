@@ -19,7 +19,7 @@ GameController::GameController() {
     GameWindow view = GameWindow();
 
     bool gameStarted = false;
-    // bool startedThread = false;
+    bool startedThread = false;
 
     view.loadMenu(si_window);
 
@@ -52,6 +52,11 @@ GameController::GameController() {
                     si_window.close();
                 } 
 
+                if (!startedThread) {
+                    thread refresherThread(&GameController::refreshGame, this, ref(si_window));
+                    refresherThread.detach(); 
+                }
+
                 if (event.type == sf::Event::KeyPressed) {
                     int x = model.getPlayer().getPosX();
 
@@ -59,7 +64,7 @@ GameController::GameController() {
                     if (event.key.code == sf::Keyboard::A) {
                         model.getPlayer().moveLeft();
                         model.getBoard().changePos(model.getPlayer(), x, model.getPlayer().getPosY());
-
+                        
                     } else if (event.key.code == sf::Keyboard::D) {
                         model.getPlayer().moveRight();
                         model.getBoard().changePos(model.getPlayer(), x, model.getPlayer().getPosY());
@@ -70,12 +75,13 @@ GameController::GameController() {
                         model.getPlayer().shoot();
                         model.getBullets().push_back(shot);
                         model.getBoard().getBoard()[shot.getPosX()][shot.getPosY()] = &shot;
-                        
+
 
                     } else if (event.key.code == sf::Keyboard::Escape) {
                         si_window.close();
                     }
                 }
+                refreshGame(si_window);
             }
         }
     }
@@ -83,8 +89,6 @@ GameController::GameController() {
 
 
 void GameController::refreshGame(sf::RenderWindow& pWindow) {
-    cout << "qui xd" << endl;
-    
     // Loads image files
     sf::Texture EnemyImage;
     sf::Texture PlayerImage;
@@ -104,30 +108,36 @@ void GameController::refreshGame(sf::RenderWindow& pWindow) {
     EnemyImage.setSmooth(true);
     PlayerImage.setSmooth(true);
     BulletImage.setSmooth(true);
+
+        
+    while (!model.isOver()) {
+        pWindow.clear();
     
+    // Loop through model
+    for (int i = 0; i < ROW_SIZE; i++) {
+        for (int j = 0; j < COLUMN_SIZE; j++) {
+            // NULLPTR IS FOUND
+            cout << i << j << endl;
 
-    while (!model.isOver()){
-        pWindow.clear();        
-
-        // Loop through model
-        for (int i = 0; i < ROW_SIZE; i++) {
-            for (int j = 0; j < COLUMN_SIZE; j++) {
-                // NULLPTR IS FOUND
-                if (model.getBoard().getBoard()[i][j] == nullptr) {
+            if (model.getBoard().getBoard()[i][j] == nullptr) {
                     // Change texture of sprite
-                     view.getBoard()[i][j].setColor(sf::Color::Transparent);
-                } else {
-                    if (model.getBoard().getBoard()[i][j]->getSymbol() == 'U') {
-                        view.getBoard()[i][j].setTexture(EnemyImage);
-                        view.getBoard()[i][j].setScale(0.1, 0.1);
-                    }
-                };
-
-                pWindow.draw(view.getBoard()[i][j]);
-            };
-        };
-        this_thread::sleep_for(chrono::milliseconds(50));
-    
-        pWindow.display();
+                    //  view.getBoard()[i][j].setColor(sf::Color::Transparent);
+            } else {
+                if (model.getBoard().getBoard()[i][j]->getSymbol() == 'U') {
+    //                 view.getBoard()[i][j].setTexture(EnemyImage);
+    //                 view.getBoard()[i][j].setScale(0.1, 0.1);
+                } else if (model.getBoard().getBoard()[i][j]->getSymbol() == 'M') {
+    //                 // cout<< "PLAYER" << model.getPlayer().getPosX() << endl;                    
+                } else if (model.getBoard().getBoard()[i][j]->getSymbol() == '*') {
+    //                 // cout<< "BULLET" << endl;
+                }
+        
+            }
+    //         pWindow.draw(view.getBoard()[i][j]);
+        }
     }
-}   
+        pWindow.display();
+
+        this_thread::sleep_for(chrono::milliseconds(37));
+    }        
+}
