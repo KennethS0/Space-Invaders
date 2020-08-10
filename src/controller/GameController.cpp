@@ -19,7 +19,7 @@ GameController::GameController() {
     GameWindow view = GameWindow();
 
     bool gameStarted = false;
-    bool startedThread = false;
+    // bool startedThread = false;
 
     view.loadMenu(si_window);
 
@@ -52,10 +52,10 @@ GameController::GameController() {
                     si_window.close();
                 } 
 
-                if (!startedThread) {
-                    thread refresherThread(&GameController::refreshGame, this, ref(si_window));
-                    refresherThread.detach(); 
-                }
+                // if (!startedThread) {
+                //     thread refresherThread(&GameController::refreshGame, this, ref(si_window));
+                //     refresherThread.detach(); 
+                // }
 
                 if (event.type == sf::Event::KeyPressed) {
                     int x = model.getPlayer().getPosX();
@@ -121,13 +121,14 @@ void GameController::refreshGame(sf::RenderWindow& pWindow) {
 
             if (model.getBoard().getBoard()[i][j] == nullptr) {
                     // Change texture of sprite
-                    //  view.getBoard()[i][j].setColor(sf::Color::Transparent);
+                    // sf::Sprite a = view.getBoard()[j][i];
+
             } else {
                 if (model.getBoard().getBoard()[i][j]->getSymbol() == 'U') {
     //                 view.getBoard()[i][j].setTexture(EnemyImage);
     //                 view.getBoard()[i][j].setScale(0.1, 0.1);
                 } else if (model.getBoard().getBoard()[i][j]->getSymbol() == 'M') {
-    //                 // cout<< "PLAYER" << model.getPlayer().getPosX() << endl;                    
+                    // cout<< "PLAYER" << model.getPlayer().getPosX() << endl;                    
                 } else if (model.getBoard().getBoard()[i][j]->getSymbol() == '*') {
     //                 // cout<< "BULLET" << endl;
                 }
@@ -138,6 +139,6 @@ void GameController::refreshGame(sf::RenderWindow& pWindow) {
     }
         pWindow.display();
 
-        this_thread::sleep_for(chrono::milliseconds(37));
+        this_thread::sleep_for(chrono::milliseconds(107));
     }        
 }

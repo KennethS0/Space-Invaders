@@ -11,7 +11,7 @@ using namespace std;
 class GameWindow
 {
 	private:
-		vector<vector<sf::Sprite>> Board;
+		sf::Sprite** Board = new sf::Sprite*[15];
 		
 	public:
 
@@ -22,7 +22,7 @@ class GameWindow
 		void loadMenu(sf::RenderWindow& pWindow);
 		void loadGame(sf::RenderWindow& pWindow);
 
-		vector<vector<sf::Sprite>> getBoard();
+		sf::Sprite **getBoard();
 };
 
 #endif

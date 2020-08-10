@@ -14,29 +14,29 @@ using namespace std;
 int main()
 {
    // ===== FOR GUI GAME =====
-   GameController controller = GameController();
+   // GameController controller = GameController();
 
    // ===== FOR COMMAND LINE GAME ======
 
-   // // Disables buffered input
-   // struct termios old_tio, new_tio;
+   // Disables buffered input
+   struct termios old_tio, new_tio;
 
-   // // get the terminal settings for stdin
-   // tcgetattr(STDIN_FILENO, &old_tio);
+   // get the terminal settings for stdin
+   tcgetattr(STDIN_FILENO, &old_tio);
 
-   // // we want to keep the old setting to restore them at the end
-   // new_tio = old_tio;
+   // we want to keep the old setting to restore them at the end
+   new_tio = old_tio;
 
-   // // disable cannonical mode (buffered i/o) and local echo
-   // new_tio.c_lflag &=(~ICANON & ~ECHO);
+   // disable cannonical mode (buffered i/o) and local echo
+   new_tio.c_lflag &=(~ICANON & ~ECHO);
 
-   // // set the new settings immediatley
-   // tcsetattr(STDIN_FILENO, TCSANOW, &new_tio);
+   // set the new settings immediatley
+   tcsetattr(STDIN_FILENO, TCSANOW, &new_tio);
 
-   // Game si = Game();
-   // si.startGame(true);
+   Game si = Game();
+   si.startGame(true);
 
-   // // sets the old file settings
-   // tcsetattr(STDIN_FILENO, TCSANOW, &old_tio);
-   // return 0;
+   // sets the old file settings
+   tcsetattr(STDIN_FILENO, TCSANOW, &old_tio);
+   return 0;
 }

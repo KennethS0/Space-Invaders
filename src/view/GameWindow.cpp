@@ -88,18 +88,17 @@ void GameWindow::loadGame(sf::RenderWindow& pWindow) {
     {
         y += 45;
         x = 0;
-        vector<sf::Sprite> Row;
+
+        Board[i] = new sf::Sprite[20];
+
         for(int j = 0; j<COLUMN_NUM; j++)
         {
             sf::Sprite nullSprite;
             nullSprite.setPosition(x, y);
             //nullSprite.scale();
-            Row.push_back(nullSprite);
+            Board[i][j] = nullSprite;
             x += 45;
-        }    sf::Font MyFont;
-    if(!MyFont.loadFromFile("src/view/SPACEMAN.TTF")) return;
-
-        Board.push_back(Row);
+        }    
     }
     
     //     for(int i = 0; i < ROW_NUM; i++){
@@ -140,6 +139,6 @@ void GameWindow::loadGame(sf::RenderWindow& pWindow) {
 }
 
 
-vector<vector<sf::Sprite>> GameWindow::getBoard() {
+sf::Sprite** GameWindow::getBoard() {
     return Board;
 }
