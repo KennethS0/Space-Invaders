@@ -11,9 +11,8 @@ class GameController{
 
     public:
         GameController();
-        void movePlayer();
 
-        void loadUI();  
+        void refreshGame(sf::RenderWindow& pWindow);  
 };
 
 #endif

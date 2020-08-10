@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include <thread>
 
 #include <iostream>
 using namespace std;
@@ -18,12 +19,12 @@ GameController::GameController() {
     GameWindow view = GameWindow();
 
     bool gameStarted = false;
+    bool startedThread = true;
 
     view.loadMenu(si_window);
 
     while (si_window.isOpen()){
         sf::Event event;
-
         while (si_window.pollEvent(event)) {
 
             if (event.type == sf::Event::Closed) si_window.close();
@@ -58,7 +59,6 @@ GameController::GameController() {
                         model.getPlayer().moveRight();
                         model.getBoard().changePos(model.getPlayer(), x, model.getPlayer().getPosY());
 
-
                     } else if (event.key.code == sf::Keyboard::Space) {
                         std::cout<<"Space"<<endl;
 
@@ -77,4 +77,50 @@ GameController::GameController() {
             }
         }
     }
+}
+
+
+void GameController::refreshGame(sf::RenderWindow& pWindow) {
+    // Loads image files
+    sf::Texture EnemyImage;
+    sf::Texture PlayerImage;
+    sf::Texture BulletImage;
+
+    if(!PlayerImage.loadFromFile("src/view/Ship.png")){
+        std::cout << "Error Loading Image!" << std::endl;
+    }
+    if (!EnemyImage.loadFromFile("src/view/Enemy.png")){
+        std::cout << "Error Loading Image!" << std::endl;
+    }
+    if (!BulletImage.loadFromFile("src/view/Bullet.png")){
+        std::cout << "Error Loading Image!" << std::endl;
+    }
+    
+    //Needs loadFromFile for Bullet Image
+    EnemyImage.setSmooth(true);
+    PlayerImage.setSmooth(true);
+    BulletImage.setSmooth(true);
+    
+    while (!model.isOver()) {
+        pWindow.clear();        
+
+        // Loop through model
+        for (int i = 0; i < ROW_SIZE; i++) {
+            for (int j = 0; j < COLUMN_SIZE; j++) {
+                // NULLPTR IS FOUND
+                if (model.getBoard().getBoard()[i][j] == nullptr) {
+                    // Change texture of sprite
+                     view.getBoard()[i][j].setColor(sf::Color::Transparent);
+                } else {
+                    if (model.getBoard().getBoard()[i][j]->getSymbol() == 'U') {
+                        view.getBoard()[i][j].setTexture(EnemyImage);
+                        view.getBoard()[i][j].setScale(0.1, 0.1);
+                    }
+                };
+
+                pWindow.draw(view.getBoard()[i][j]);
+            };
+        };
+        this_thread::sleep_for(chrono::milliseconds(50));
+    }   
 }

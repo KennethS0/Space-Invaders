@@ -78,33 +78,8 @@ void GameWindow::loadGame(sf::RenderWindow& pWindow) {
     pWindow.clear();
     pWindow.setSize(sf::Vector2u(Screen_Width, Screen_Height));
 
-    sf::Texture EnemyImage;
-    sf::Texture PlayerImage;
-    sf::Texture BulletImage;
-
-    if(!PlayerImage.loadFromFile("src/view/Ship.png")){
-        std::cout << "Error Loading Image!" << std::endl;
-    }
-    if (!EnemyImage.loadFromFile("src/view/Enemy.png")){
-        std::cout << "Error Loading Image!" << std::endl;
-    }
-    if (!BulletImage.loadFromFile("src/view/Bullet.png")){
-        std::cout << "Error Loading Image!" << std::endl;
-    }
-
     sf::Font MyFont;
     if(!MyFont.loadFromFile("src/view/SPACEMAN.TTF")) return;
-
-    //Needs loadFromFile for Bullet Image
-    EnemyImage.setSmooth(true);
-    PlayerImage.setSmooth(true);
-    BulletImage.setSmooth(true);
-
-
-    vector <sf::Texture> gameObjects;
-    gameObjects.push_back(PlayerImage);
-    gameObjects.push_back(EnemyImage);
-    gameObjects.push_back(BulletImage);
 
     int x = 0;
     int y = -45;
