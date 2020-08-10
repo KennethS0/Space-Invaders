@@ -310,3 +310,7 @@ Board Game::getBoard() {
 Player Game::getPlayer() {
     return player;
 }
+
+vector<Bullet> Game::getBullets(){
+    return bullets;
+}
