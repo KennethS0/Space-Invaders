@@ -25,19 +25,22 @@ void GameWindow::run(){
 
     while (gameWindow.isOpen()){
         sf::Event event;
-        while (gameWindow.pollEvent(event)) {
-            if (event.type == sf::Event::Closed) gameWindow.close();
-
-            if (event.type == sf::Event::KeyPressed) {
-                // ESC
-                if (event.key.code == sf::Keyboard::Escape) {
-                        gameWindow.close();
-                }
-
-
-            }
+        while (gameWindow.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+               gameWindow.close();
+    //             //Window actions
+    //             gameWindow.clear();
+    //             for(int i = 0; i<ROW_NUM; i++){
+    //             for(int j = 0; j<COLUMN_NUM; j++){
+    //                 //This is where the validation whether is an enemy, a bullet or player is set.
+    //                 gameWindow.draw(Board[i][j]);
+    //             }
+    //         }
+    //         gameWindow.display();
+    //     }
+	//     // Leaving the scope of 'Application' will cleanup the engine
         }
-
     }
 }
 
