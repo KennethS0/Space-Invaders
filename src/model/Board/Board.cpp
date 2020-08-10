@@ -35,7 +35,7 @@ Entity*** Board::getBoard() {
     return board;
 }
 
-void Board::changePos(Entity& pEnt, int pOldX, int pOldY) {
+void Board::changePos(Entity pEnt, int pOldX, int pOldY) {
     // Removes the pointer
     this->getBoard()[pOldY][pOldX] = nullptr;
 
