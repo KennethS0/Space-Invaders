@@ -20,7 +20,7 @@ using namespace std;
 #define Screen_Height_Menu 600
 
 void GameWindow::run(){
-    sf::RenderWindow gameWindow(sf::VideoMode(Screen_Width_Menu, Screen_Height_Menu), "Space Invaders");
+    sf::RenderWindow gameWindow(sf::VideoMode(Screen_Width, Screen_Height), "Space Invaders");
     loadMenu(gameWindow);
 
     while (gameWindow.isOpen()){
@@ -35,12 +35,8 @@ void GameWindow::run(){
                 }
                 // ENTER (LOADS NEW WINDOW)
                 else if (event.key.code == sf::Keyboard::Return) {
-                    gameWindow.clear();
-
-                    // Loads the game window
-                    sf::RenderWindow gameWindow(sf::VideoMode(Screen_Width, Screen_Height), "Space Invaders");
                     loadGame(gameWindow);
-
+                    gameWindow.display();
 
                 }
 
@@ -58,7 +54,7 @@ void GameWindow::loadMenu(sf::RenderWindow& pWindow) {
     sf::Vector2u sizeOfTexture;
 
     sf::Font MyFont;
-    if(!MyFont.loadFromFile("/home/ifrann/Documents/TEC/I SEM/Arqui/SpaceInvaders_Project/Space-Invaders/src/view/SPACEMAN.TTF")) return;
+    if(!MyFont.loadFromFile("src/view/SPACEMAN.TTF")) return;
 
     sf::Text title;
     title.setFont(MyFont);
@@ -81,7 +77,7 @@ void GameWindow::loadMenu(sf::RenderWindow& pWindow) {
     leave.setString("Press 'ESC' to quit");
     leave.setPosition(sf::Vector2f(155,370));
     
-    if(!BackgroundTexture.loadFromFile("/home/ifrann/Documents/TEC/I SEM/Arqui/SpaceInvaders_Project/Space-Invaders/src/view/background.jpg")){
+    if(!BackgroundTexture.loadFromFile("src/view/background.jpg")){
         return;
 
     } else{
@@ -109,6 +105,9 @@ void GameWindow::loadMenu(sf::RenderWindow& pWindow) {
 
 void GameWindow::loadGame(sf::RenderWindow& pWindow) {
 
+    pWindow.clear();
+    pWindow.setSize(sf::Vector2u(Screen_Width, Screen_Height));
+
     sf::Texture EnemyImage;
     sf::Texture PlayerImage;
     sf::Texture BulletImage;
@@ -116,18 +115,18 @@ void GameWindow::loadGame(sf::RenderWindow& pWindow) {
     sf::Texture BackgroundTexture;
 
 
-    if(!PlayerImage.loadFromFile("/home/ifrann/Documents/TEC/I SEM/Arqui/SpaceInvaders_Project/Space-Invaders/src/view/Ship.png")){
+    if(!PlayerImage.loadFromFile("src/view/Ship.png")){
         std::cout << "Error Loading Image!" << std::endl;
     }
-    if (!EnemyImage.loadFromFile("/home/ifrann/Documents/TEC/I SEM/Arqui/SpaceInvaders_Project/Space-Invaders/src/view/Enemy.png")){
+    if (!EnemyImage.loadFromFile("src/view/Enemy.png")){
         std::cout << "Error Loading Image!" << std::endl;
     }
-    if (!BulletImage.loadFromFile("/home/ifrann/Documents/TEC/I SEM/Arqui/SpaceInvaders_Project/Space-Invaders/src/view/Bullet.png")){
+    if (!BulletImage.loadFromFile("src/view/Bullet.png")){
         std::cout << "Error Loading Image!" << std::endl;
     }
 
     sf::Font MyFont;
-    if(!MyFont.loadFromFile("/home/ifrann/Documents/TEC/I SEM/Arqui/SpaceInvaders_Project/Space-Invaders/src/view/SPACEMAN.TTF")) return;
+    if(!MyFont.loadFromFile("src/view/SPACEMAN.TTF")) return;
 
     //Needs loadFromFile for Bullet Image
     EnemyImage.setSmooth(true);
@@ -160,7 +159,7 @@ void GameWindow::loadGame(sf::RenderWindow& pWindow) {
             Row.push_back(nullSprite);
             x += 45;
         }    sf::Font MyFont;
-    if(!MyFont.loadFromFile("/home/ifrann/Documents/TEC/I SEM/Arqui/SpaceInvaders_Project/Space-Invaders/src/view/SPACEMAN.TTF")) return;
+    if(!MyFont.loadFromFile("src/view/SPACEMAN.TTF")) return;
 
         Board.push_back(Row);
     }
@@ -209,5 +208,4 @@ void GameWindow::loadGame(sf::RenderWindow& pWindow) {
     }
     pWindow.draw(Score);
     pWindow.draw(Lives);
-    pWindow.display();
 }
