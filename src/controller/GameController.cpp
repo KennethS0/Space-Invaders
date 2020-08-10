@@ -19,7 +19,7 @@ GameController::GameController() {
     GameWindow view = GameWindow();
 
     bool gameStarted = false;
-    bool startedThread = true;
+    // bool startedThread = false;
 
     view.loadMenu(si_window);
 
@@ -50,6 +50,7 @@ GameController::GameController() {
                 // Game logic and redrawing
                 if (event.type == sf::Event::KeyPressed) {
                     int x = model.getPlayer().getPosX();
+
                     // Right movement
                     if (event.key.code == sf::Keyboard::A) {
                         model.getPlayer().moveLeft();
@@ -68,14 +69,7 @@ GameController::GameController() {
                         
 
                     } else if (event.key.code == sf::Keyboard::Escape) {
-                        
-                        si_window.clear();
-                        view.loadMenu(si_window);
-                        si_window.display();
-
-                        // Ends game and shows menu
-                        gameStarted = false;
-                        model.setOver(true);
+                        si_window.close();
                     }
                 }
             }
@@ -105,8 +99,7 @@ void GameController::refreshGame(sf::RenderWindow& pWindow) {
     PlayerImage.setSmooth(true);
     BulletImage.setSmooth(true);
     
-    while (!model.isOver()) {
-        pWindow.clear();        
+    pWindow.clear();        
 
         // Loop through model
         for (int i = 0; i < ROW_SIZE; i++) {
@@ -125,6 +118,7 @@ void GameController::refreshGame(sf::RenderWindow& pWindow) {
                 pWindow.draw(view.getBoard()[i][j]);
             };
         };
-        this_thread::sleep_for(chrono::milliseconds(50));
+        // this_thread::sleep_for(chrono::milliseconds(50));
+    
+    pWindow.display();
     }   
-}
