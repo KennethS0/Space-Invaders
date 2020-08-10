@@ -57,7 +57,7 @@ void GameWindow::loadMenu(sf::RenderWindow& pWindow) {
     sf::Vector2u sizeOfTexture;
 
     sf::Font MyFont;
-    if(!MyFont.loadFromFile("/home/kenneth/Documents/GitHub/Space-Invaders/src/view/SPACEMAN.TTF")) return;
+    if(!MyFont.loadFromFile("/home/ifrann/Documents/TEC/I SEM/Arqui/SpaceInvaders_Project/Space-Invaders/src/view/SPACEMAN.TTF")) return;
 
     sf::Text title;
     title.setFont(MyFont);
@@ -80,7 +80,7 @@ void GameWindow::loadMenu(sf::RenderWindow& pWindow) {
     leave.setString("Press 'ESC' to quit");
     leave.setPosition(sf::Vector2f(155,370));
     
-    if(!BackgroundTexture.loadFromFile("/home/kenneth/Documents/GitHub/Space-Invaders/src/view/background.jpg")){
+    if(!BackgroundTexture.loadFromFile("/home/ifrann/Documents/TEC/I SEM/Arqui/SpaceInvaders_Project/Space-Invaders/src/view/background.jpg")){
         return;
 
     } else{
@@ -113,15 +113,19 @@ void GameWindow::loadGame(sf::RenderWindow& pWindow) {
 
     sf::Texture BackgroundTexture;
 
-    if(!PlayerImage.loadFromFile("/home/kenneth/Documents/GitHub/Space-Invaders/src/view/Ship.png")){
+    if(!PlayerImage.loadFromFile("/home/ifrann/Documents/TEC/I SEM/Arqui/SpaceInvaders_Project/Space-Invaders/src/view/Ship.png")){
         std::cout << "Error Loading Image!" << std::endl;
     }
-    if (!EnemyImage.loadFromFile("/home/kenneth/Documents/GitHub/Space-Invaders/src/view/Enemy.png")){
+    if (!EnemyImage.loadFromFile("/home/ifrann/Documents/TEC/I SEM/Arqui/SpaceInvaders_Project/Space-Invaders/src/view/Enemy.png")){
         std::cout << "Error Loading Image!" << std::endl;
     }
-    if (!BulletImage.loadFromFile("/home/kenneth/Documents/GitHub/Space-Invaders/src/view/Bullet.png")){
+    if (!BulletImage.loadFromFile("/home/ifrann/Documents/TEC/I SEM/Arqui/SpaceInvaders_Project/Space-Invaders/src/view/Bullet.png")){
         std::cout << "Error Loading Image!" << std::endl;
     }
+
+    sf::Font MyFont;
+    if(!MyFont.loadFromFile("/home/ifrann/Documents/TEC/I SEM/Arqui/SpaceInvaders_Project/Space-Invaders/src/view/SPACEMAN.TTF")) return;
+
     //Needs loadFromFile for Bullet Image
     EnemyImage.setSmooth(true);
     PlayerImage.setSmooth(true);
@@ -156,9 +160,49 @@ void GameWindow::loadGame(sf::RenderWindow& pWindow) {
         Board.push_back(Row);
     }
     
-    sf::Vector2u sizeOfWindow;
-    sf::Vector2u sizeOfTexture;
+        for(int i = 0; i < ROW_NUM; i++){
+        for(int j = 0; j < COLUMN_NUM; j++){
+            Board[i][j].setTexture(EnemyImage);
+            Board[i][j].setScale(0.1, 0.1);
+        }
+
+    }
+    for(int j = 0; j < COLUMN_NUM; j++){
+        Board[14][j].setColor(sf::Color::Transparent);
+    }
+    int scoreNum = 123456; // the score to print
+    
+    string scoreStr = to_string(scoreNum);
+
+    sf::Text Score;
+    Score.setFont(MyFont);
+    Score.setCharacterSize(25);
+    Score.setStyle(sf::Text::Bold);
+    Score.setString("Score: " + scoreStr);
+    Score.setPosition(sf::Vector2f(20,655));
+
+    int livesNum = 3;
+
+    string livesStr = to_string(livesNum);
+
+    sf::Text Lives;
+    Lives.setFont(MyFont);
+    Lives.setCharacterSize(25);
+    Lives.setStyle(sf::Text::Bold);
+    Lives.setString("Lives: " + livesStr);
+    Lives.setPosition(sf::Vector2f(700,655));
+
 
     //Main Window Loop
+    pWindow.clear();    
+    for(int i = 0; i<ROW_NUM; i++){
+        for(int j = 0; j<COLUMN_NUM; j++)
+        {
+            //This is where the validation whether is an enemy, a bullet or player is set.
+            pWindow.draw(Board[i][j]);
+        }
+    }
+    pWindow.draw(Score);
+    pWindow.draw(Lives);
     pWindow.display();
 }
