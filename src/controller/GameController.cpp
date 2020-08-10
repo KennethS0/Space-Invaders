@@ -33,26 +33,26 @@ GameController::GameController(Game pModel, GameWindow pView) {
 }
 
 void GameController::movePlayer() {
-    sf::Event event;
+    // sf::Event event;
     
-    while(!model.isOver()) {
-         if (event.type == sf::Event::KeyPressed){
-                switch(event.key.code){
-                    case sf::Keyboard::W:
-                        // Tripas aqui
-                        break;
-                    case sf::Keyboard::S:
-                        // Tripas aqui tambien
-                        break;
-                    case sf::Keyboard::A:
-                        // Y aqui
-                        break;
-                    case sf::Keyboard::D:
-                        // Aqui as well
-                        break;
-                }
-            }
-    }
+    // while(!model.isOver()) {
+    //      if (event.type == sf::Event::KeyPressed){
+    //             switch(event.key.code){
+    //                 case sf::Keyboard::W:
+    //                     // Tripas aqui
+    //                     break;
+    //                 case sf::Keyboard::S:
+    //                     // Tripas aqui tambien
+    //                     break;
+    //                 case sf::Keyboard::A:
+    //                     // Y aqui
+    //                     break;
+    //                 case sf::Keyboard::D:
+    //                     // Aqui as well
+    //                     break;
+    //             }
+    //         }
+    // }
 
 
 }

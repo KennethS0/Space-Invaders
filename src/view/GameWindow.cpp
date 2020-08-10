@@ -20,16 +20,10 @@ using namespace std;
 #define Screen_Height_Menu 600
 
 void GameWindow::run(){
-    // sf::RenderWindow gameWindow(sf::VideoMode(Screen_Width_Menu, Screen_Height_Menu), "Space Invaders");
-    // loadMenu(gameWindow);
-    cout << "xd";
-    // while (gameWindow.isOpen()){
-        // sf::Event event;
-    //     while (gameWindow.pollEvent(event))
-    //     {
-    //         if (event.type == sf::Event::Closed)
-    //            gameWindow.close();
+    sf::RenderWindow gameWindow(sf::VideoMode(Screen_Width_Menu, Screen_Height_Menu), "Space Invaders");
+    loadMenu(gameWindow);
 
+    while (gameWindow.isOpen()){
     //             //Window actions
     //             gameWindow.clear();
     //             for(int i = 0; i<ROW_NUM; i++){
@@ -41,68 +35,68 @@ void GameWindow::run(){
     //         gameWindow.display();
     //     }
 	//     // Leaving the scope of 'Application' will cleanup the engine
-    // }
+    }
 }
 
 
-// void GameWindow::loadMenu(sf::RenderWindow& pWindow) {
-//     sf::Texture BackgroundTexture;
-//     sf::Sprite background;
+void GameWindow::loadMenu(sf::RenderWindow& pWindow) {
+    sf::Texture BackgroundTexture;
+    sf::Sprite background;
 
-//     sf::Vector2u sizeOfWindow;
-//     sf::Vector2u sizeOfTexture;
+    sf::Vector2u sizeOfWindow;
+    sf::Vector2u sizeOfTexture;
 
-//     sf::Font MyFont;
-//     if(!MyFont.loadFromFile("SPACEMAN.TTF")) return;
+    sf::Font MyFont;
+    if(!MyFont.loadFromFile("/home/kenneth/Documents/GitHub/Space-Invaders/src/view/SPACEMAN.TTF")) return;
 
-//     sf::Text title;
-//     title.setFont(MyFont);
-//     title.setCharacterSize(55);
-//     title.setStyle(sf::Text::Bold);
-//     title.setString("SPACE INVADERS");
-//     title.setPosition(sf::Vector2f(80,80));
+    sf::Text title;
+    title.setFont(MyFont);
+    title.setCharacterSize(55);
+    title.setStyle(sf::Text::Bold);
+    title.setString("SPACE INVADERS");
+    title.setPosition(sf::Vector2f(80,80));
 
-//     sf::Text play;
-//     play.setFont(MyFont);
-//     play.setCharacterSize(25);
-//     play.setStyle(sf::Text::Bold);
-//     play.setString("Press 'ENTER' to play");
-//     play.setPosition(sf::Vector2f(120,250));
+    sf::Text play;
+    play.setFont(MyFont);
+    play.setCharacterSize(25);
+    play.setStyle(sf::Text::Bold);
+    play.setString("Press 'ENTER' to play");
+    play.setPosition(sf::Vector2f(120,250));
 
-//     sf::Text leave;
-//     leave.setFont(MyFont);
-//     leave.setCharacterSize(25);
-//     leave.setStyle(sf::Text::Bold);
-//     leave.setString("Press 'ESC' to quit");
-//     leave.setPosition(sf::Vector2f(155,370));
+    sf::Text leave;
+    leave.setFont(MyFont);
+    leave.setCharacterSize(25);
+    leave.setStyle(sf::Text::Bold);
+    leave.setString("Press 'ESC' to quit");
+    leave.setPosition(sf::Vector2f(155,370));
     
-//     if(!BackgroundTexture.loadFromFile("background.jpg")){
-//         return;
+    if(!BackgroundTexture.loadFromFile("/home/kenneth/Documents/GitHub/Space-Invaders/src/view/background.jpg")){
+        return;
 
-//     } else{
-//         sizeOfTexture = BackgroundTexture.getSize();
-//         sizeOfWindow = pWindow.getSize();
+    } else{
+        sizeOfTexture = BackgroundTexture.getSize();
+        sizeOfWindow = pWindow.getSize();
 
-//         float ScaleX = (float) sizeOfWindow.x / sizeOfTexture.x;
-//         float ScaleY = (float) sizeOfWindow.y / sizeOfTexture.y;
+        float ScaleX = (float) sizeOfWindow.x / sizeOfTexture.x;
+        float ScaleY = (float) sizeOfWindow.y / sizeOfTexture.y;
 
-//         background.setTexture(BackgroundTexture);
-//         background.setScale(ScaleX, ScaleY);
-//     }   
+        background.setTexture(BackgroundTexture);
+        background.setScale(ScaleX, ScaleY);
+    }   
 
-//      //Scaling Functionalities
-//     sizeOfWindow = pWindow.getSize();
+     //Scaling Functionalities
+    sizeOfWindow = pWindow.getSize();
 
-//     float ScaleX = 0.1;
-// 	float ScaleY = 0.1; 
+    // float ScaleX = 0.1;
+	// float ScaleY = 0.1; 
 
-//     //Window actions
-//     pWindow.draw(background);
-//     pWindow.draw(title);
-//     pWindow.draw(play);
-//     pWindow.draw(leave);
-//     pWindow.display();
-// }
+    //Window actions
+    pWindow.draw(background);
+    pWindow.draw(title);
+    pWindow.draw(play);
+    pWindow.draw(leave);
+    pWindow.display();
+}
 
 
 // void GameWindow::loadGame(sf::RenderWindow& pWindow) {
