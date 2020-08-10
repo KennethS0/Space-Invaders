@@ -19,12 +19,11 @@ using namespace std;
 #define Screen_Width_Menu 900
 #define Screen_Height_Menu 600
 
-void GameWindow::run()
-{
-    sf::RenderWindow gameWindow(sf::VideoMode(Screen_Width_Menu, Screen_Height_Menu), "Space Invaders");
-    loadMenu(gameWindow);
-  
-    while (gameWindow.isOpen()){
+void GameWindow::run(){
+    // sf::RenderWindow gameWindow(sf::VideoMode(Screen_Width_Menu, Screen_Height_Menu), "Space Invaders");
+    // loadMenu(gameWindow);
+    cout << "xd";
+    // while (gameWindow.isOpen()){
         // sf::Event event;
     //     while (gameWindow.pollEvent(event))
     //     {
@@ -42,123 +41,123 @@ void GameWindow::run()
     //         gameWindow.display();
     //     }
 	//     // Leaving the scope of 'Application' will cleanup the engine
-    }
+    // }
 }
 
 
-void GameWindow::loadMenu(sf::RenderWindow& pWindow) {
-    sf::Texture BackgroundTexture;
-    sf::Sprite background;
+// void GameWindow::loadMenu(sf::RenderWindow& pWindow) {
+//     sf::Texture BackgroundTexture;
+//     sf::Sprite background;
 
-    sf::Vector2u sizeOfWindow;
-    sf::Vector2u sizeOfTexture;
+//     sf::Vector2u sizeOfWindow;
+//     sf::Vector2u sizeOfTexture;
 
-    sf::Font MyFont;
-    if(!MyFont.loadFromFile("SPACEMAN.TTF")) return;
+//     sf::Font MyFont;
+//     if(!MyFont.loadFromFile("SPACEMAN.TTF")) return;
 
-    sf::Text title;
-    title.setFont(MyFont);
-    title.setCharacterSize(55);
-    title.setStyle(sf::Text::Bold);
-    title.setString("SPACE INVADERS");
-    title.setPosition(sf::Vector2f(80,80));
+//     sf::Text title;
+//     title.setFont(MyFont);
+//     title.setCharacterSize(55);
+//     title.setStyle(sf::Text::Bold);
+//     title.setString("SPACE INVADERS");
+//     title.setPosition(sf::Vector2f(80,80));
 
-    sf::Text play;
-    play.setFont(MyFont);
-    play.setCharacterSize(25);
-    play.setStyle(sf::Text::Bold);
-    play.setString("Press 'ENTER' to play");
-    play.setPosition(sf::Vector2f(120,250));
+//     sf::Text play;
+//     play.setFont(MyFont);
+//     play.setCharacterSize(25);
+//     play.setStyle(sf::Text::Bold);
+//     play.setString("Press 'ENTER' to play");
+//     play.setPosition(sf::Vector2f(120,250));
 
-    sf::Text leave;
-    leave.setFont(MyFont);
-    leave.setCharacterSize(25);
-    leave.setStyle(sf::Text::Bold);
-    leave.setString("Press 'ESC' to quit");
-    leave.setPosition(sf::Vector2f(155,370));
+//     sf::Text leave;
+//     leave.setFont(MyFont);
+//     leave.setCharacterSize(25);
+//     leave.setStyle(sf::Text::Bold);
+//     leave.setString("Press 'ESC' to quit");
+//     leave.setPosition(sf::Vector2f(155,370));
     
-    if(!BackgroundTexture.loadFromFile("background.jpg")){
-        return;
+//     if(!BackgroundTexture.loadFromFile("background.jpg")){
+//         return;
 
-    } else{
-        sizeOfTexture = BackgroundTexture.getSize();
-        sizeOfWindow = pWindow.getSize();
+//     } else{
+//         sizeOfTexture = BackgroundTexture.getSize();
+//         sizeOfWindow = pWindow.getSize();
 
-        float ScaleX = (float) sizeOfWindow.x / sizeOfTexture.x;
-        float ScaleY = (float) sizeOfWindow.y / sizeOfTexture.y;
+//         float ScaleX = (float) sizeOfWindow.x / sizeOfTexture.x;
+//         float ScaleY = (float) sizeOfWindow.y / sizeOfTexture.y;
 
-        background.setTexture(BackgroundTexture);
-        background.setScale(ScaleX, ScaleY);
-    }   
+//         background.setTexture(BackgroundTexture);
+//         background.setScale(ScaleX, ScaleY);
+//     }   
 
-     //Scaling Functionalities
-    sizeOfWindow = pWindow.getSize();
+//      //Scaling Functionalities
+//     sizeOfWindow = pWindow.getSize();
 
-    float ScaleX = 0.1;
-	float ScaleY = 0.1; 
+//     float ScaleX = 0.1;
+// 	float ScaleY = 0.1; 
 
-    //Window actions
-    pWindow.draw(background);
-    pWindow.draw(title);
-    pWindow.draw(play);
-    pWindow.draw(leave);
-    pWindow.display();
-}
-
-
-void GameWindow::loadGame(sf::RenderWindow& pWindow) {
-    sf::Texture EnemyImage;
-    sf::Texture PlayerImage;
-    sf::Texture BulletImage;
+//     //Window actions
+//     pWindow.draw(background);
+//     pWindow.draw(title);
+//     pWindow.draw(play);
+//     pWindow.draw(leave);
+//     pWindow.display();
+// }
 
 
-    sf::Texture BackgroundTexture;
-
-    if(!PlayerImage.loadFromFile("Ship.png")){
-        std::cout << "Error Loading Image!" << std::endl;
-    }
-    if (!EnemyImage.loadFromFile("Enemy.png")){
-        std::cout << "Error Loading Image!" << std::endl;
-    }
-    if (!BulletImage.loadFromFile("Bullet.png")){
-        std::cout << "Error Loading Image!" << std::endl;
-    }
-    //Needs loadFromFile for Bullet Image
-    EnemyImage.setSmooth(true);
-    PlayerImage.setSmooth(true);
-    BulletImage.setSmooth(true);
+// void GameWindow::loadGame(sf::RenderWindow& pWindow) {
+//     sf::Texture EnemyImage;
+//     sf::Texture PlayerImage;
+//     sf::Texture BulletImage;
 
 
-    vector <sf::Texture> gameObjects;
-    gameObjects.push_back(PlayerImage);
-    gameObjects.push_back(EnemyImage);
-    gameObjects.push_back(BulletImage);
+//     sf::Texture BackgroundTexture;
+
+//     if(!PlayerImage.loadFromFile("Ship.png")){
+//         std::cout << "Error Loading Image!" << std::endl;
+//     }
+//     if (!EnemyImage.loadFromFile("Enemy.png")){
+//         std::cout << "Error Loading Image!" << std::endl;
+//     }
+//     if (!BulletImage.loadFromFile("Bullet.png")){
+//         std::cout << "Error Loading Image!" << std::endl;
+//     }
+//     //Needs loadFromFile for Bullet Image
+//     EnemyImage.setSmooth(true);
+//     PlayerImage.setSmooth(true);
+//     BulletImage.setSmooth(true);
 
 
-    vector<vector<sf::Sprite>> Board;
+//     vector <sf::Texture> gameObjects;
+//     gameObjects.push_back(PlayerImage);
+//     gameObjects.push_back(EnemyImage);
+//     gameObjects.push_back(BulletImage);
 
-    int x = 0;
-    int y = -45;
+
+//     vector<vector<sf::Sprite>> Board;
+
+//     int x = 0;
+//     int y = -45;
 
 
-    for(int i = 0; i<ROW_NUM; i++)
-    {
-        y += 45;
-        x = 0;
-        vector<sf::Sprite> Row;
-        for(int j = 0; j<COLUMN_NUM; j++)
-        {
-            sf::Sprite nullSprite;
-            nullSprite.setPosition(x, y);
-            //nullSprite.scale();
-            Row.push_back(nullSprite);
-            x += 45;
-        }
-        Board.push_back(Row);
-    }
+//     for(int i = 0; i<ROW_NUM; i++)
+//     {
+//         y += 45;
+//         x = 0;
+//         vector<sf::Sprite> Row;
+//         for(int j = 0; j<COLUMN_NUM; j++)
+//         {
+//             sf::Sprite nullSprite;
+//             nullSprite.setPosition(x, y);
+//             //nullSprite.scale();
+//             Row.push_back(nullSprite);
+//             x += 45;
+//         }
+//         Board.push_back(Row);
+//     }
     
-    sf::Vector2u sizeOfWindow;
-    sf::Vector2u sizeOfTexture;
+//     sf::Vector2u sizeOfWindow;
+//     sf::Vector2u sizeOfTexture;
 
-    //Main Window Loop
-}
+//     //Main Window Loop
+// }

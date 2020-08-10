@@ -29,7 +29,9 @@ SRC      :=                      \
    $(wildcard src/model/Bullet/*.cpp) \
    $(wildcard src/model/Player/*.cpp) \
    $(wildcard src/model/Game/*.cpp) \
-   $(wildcard src/*.cpp)         \
+   $(wildcard src/view/*.cpp) \
+   $(wildcard src/controller/*.cpp) \
+   $(wildcard src/*.cpp) \
 
 OBJECTS  := $(SRC:%.cpp=$(OBJ_DIR)/%.o)
 
