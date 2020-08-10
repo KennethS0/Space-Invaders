@@ -35,6 +35,7 @@ void GameWindow::run(){
                     loadGame(gameWindow);
                     gameWindow.display();
                     started = true;
+
                 }
             }
         }
@@ -108,9 +109,6 @@ void GameWindow::loadGame(sf::RenderWindow& pWindow) {
     sf::Texture PlayerImage;
     sf::Texture BulletImage;
 
-    sf::Texture BackgroundTexture;
-
-
     if(!PlayerImage.loadFromFile("src/view/Ship.png")){
         std::cout << "Error Loading Image!" << std::endl;
     }
@@ -135,12 +133,8 @@ void GameWindow::loadGame(sf::RenderWindow& pWindow) {
     gameObjects.push_back(EnemyImage);
     gameObjects.push_back(BulletImage);
 
-
-    vector<vector<sf::Sprite>> Board;
-
     int x = 0;
     int y = -45;
-
 
     for(int i = 0; i<ROW_NUM; i++)
     {
@@ -160,13 +154,13 @@ void GameWindow::loadGame(sf::RenderWindow& pWindow) {
         Board.push_back(Row);
     }
     
-        for(int i = 0; i < ROW_NUM; i++){
-        for(int j = 0; j < COLUMN_NUM; j++){
-            Board[i][j].setTexture(EnemyImage);
-            Board[i][j].setScale(0.1, 0.1);
-        }
+    //     for(int i = 0; i < ROW_NUM; i++){
+    //     for(int j = 0; j < COLUMN_NUM; j++){
+    //         Board[i][j].setTexture(EnemyImage);
+    //         Board[i][j].setScale(0.1, 0.1);
+    //     }
 
-    }
+    // }
     for(int j = 0; j < COLUMN_NUM; j++){
         Board[14][j].setColor(sf::Color::Transparent);
     }
@@ -197,3 +191,7 @@ void GameWindow::loadGame(sf::RenderWindow& pWindow) {
     pWindow.draw(Lives);
 }
 
+
+vector<vector<sf::Sprite>> GameWindow::getBoard() {
+    return Board;
+}

@@ -19,8 +19,6 @@ int main()
 
    GameController controller = GameController(si ,window);
 
-   
-
    // ===== FOR COMMAND LINE GAME ======
 
    // // Disables buffered input
