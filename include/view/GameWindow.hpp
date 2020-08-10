@@ -9,7 +9,7 @@ class GameWindow
 		void run();
 
 		void loadMenu(sf::RenderWindow& pWindow);
-		// void loadGame(sf::RenderWindow& pWindow);
+		void loadGame(sf::RenderWindow& pWindow);
 };
 
 #endif
