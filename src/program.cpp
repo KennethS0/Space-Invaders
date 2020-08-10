@@ -14,10 +14,7 @@ using namespace std;
 int main()
 {
    // ===== FOR GUI GAME =====
-   GameWindow window = GameWindow();
-   Game si = Game();
-
-   GameController controller = GameController(si, window);
+   GameController controller = GameController();
 
    // ===== FOR COMMAND LINE GAME ======
 

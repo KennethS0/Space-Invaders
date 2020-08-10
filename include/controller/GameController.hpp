@@ -10,7 +10,7 @@ class GameController{
         GameWindow view;
 
     public:
-        GameController(Game pModel, GameWindow pView);
+        GameController();
         void movePlayer();
 
         void loadUI();  

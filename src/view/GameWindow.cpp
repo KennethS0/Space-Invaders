@@ -16,24 +16,21 @@ using namespace std;
 #define COLUMN_NUM 20
 #define ROW_NUM 15
 
-void GameWindow::run(){
-    sf::RenderWindow gameWindow(sf::VideoMode(Screen_Width, Screen_Height), "Space Invaders");
-    loadMenu(gameWindow);
-
-    while (gameWindow.isOpen()){
+void GameWindow::run(sf::RenderWindow& pWindow){
+    while (pWindow.isOpen()){
         sf::Event event;
-        while (gameWindow.pollEvent(event)) {
-            if (event.type == sf::Event::Closed) gameWindow.close();
+        while (pWindow.pollEvent(event)) {
+            if (event.type == sf::Event::Closed) pWindow.close();
 
             if (event.type == sf::Event::KeyPressed) {
                 // ESC
                 if (event.key.code == sf::Keyboard::Escape) {
-                    gameWindow.close();
+                    pWindow.close();
                 }
                 // ENTER (LOADS NEW WINDOW)
                 else if (event.key.code == sf::Keyboard::Return) {
-                    loadGame(gameWindow);
-                    gameWindow.display();
+                    loadGame(pWindow);
+                    pWindow.display();
                     started = true;
 
                 }

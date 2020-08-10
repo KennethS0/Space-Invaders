@@ -12,13 +12,12 @@ class GameWindow
 {
 	private:
 		vector<vector<sf::Sprite>> Board;
+		
 	public:
-	
-		// sf::RenderWindow gameWindow;
 
 		bool started = false;
 
-		void run();
+		void run(sf::RenderWindow& pWindow);
 
 		void loadMenu(sf::RenderWindow& pWindow);
 		void loadGame(sf::RenderWindow& pWindow);

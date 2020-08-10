@@ -1,4 +1,6 @@
 #include <controller/GameController.hpp>
+#include <view/GameWindow.hpp>
+#include <model/Game/Game.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
@@ -6,59 +8,15 @@
 #include <iostream>
 using namespace std;
 
-GameController::GameController(Game pModel, GameWindow pView) {
-    model = pModel;
-    view = pView;
+//General Variables Definition
+#define Screen_Width 920 // 20 Colummns
+#define Screen_Height 720 // 16 Rows
 
-    thread uiRefresher(&GameController::loadUI, this);
-    uiRefresher.detach();
+GameController::GameController() {
+    sf::RenderWindow si_window(sf::VideoMode(Screen_Width, Screen_Height), "Space Invaders");
+    Game model = Game();
+    GameWindow view = GameWindow();
 
-    while (!view.started){}
-
-    // Detach a thread for player movement
-    thread playerMovement(&GameController::movePlayer, this);
-    playerMovement.detach();
-
-    // Start the game (not in terminal)
-    model.startGame(false);
-
-    // Refreshes the game on the screen
-    while (!model.isOver()) {
-        for (int i = 0; i < ROW_SIZE; i++) {
-
-            for (int j = 0; j < COLUMN_SIZE; j++) {
-                // NULLPTR IS FOUND
-                if (model.getBoard().getBoard()[i][j] == nullptr) {
-                                   
-                } else {
-
-                };
-            };
-        };
-    };
-}
-
-
-void GameController::loadUI() {
-    view.run();
-}
-
-
-void GameController::movePlayer() {
-    // sf::Event event;
-    
-    // while(!model.isOver()) {
-    //     if (event.type == sf::Event::KeyPressed){
-    //         if (event.key.code == sf::Keyboard::S) {
-    //             cout<<"S"<<endl;
-    //         }
-    //         else if (event.key.code == sf::Keyboard::A) {
-    //             cout<<"A"<<endl;
-    //         }
-    //         else if (event.key.code == sf::Keyboard::Space) {
-    //             cout<<"SPACE"<<endl;
-    //         }
-
-    //     }
-    // }
+    view.loadMenu(si_window);
+    view.run(si_window);
 }
