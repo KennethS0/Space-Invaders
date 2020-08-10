@@ -15,8 +15,6 @@ int main()
 {
    // ===== FOR GUI GAME =====
    GameWindow window = GameWindow();
-   window.run();
-
    Game si = Game();
 
    GameController controller = GameController(si ,window);

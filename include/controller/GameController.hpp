@@ -12,6 +12,8 @@ class GameController{
     public:
         GameController(Game pModel, GameWindow pView);
         void movePlayer();
+
+        void loadUI();  
 };
 
 #endif

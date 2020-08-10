@@ -10,6 +10,9 @@ GameController::GameController(Game pModel, GameWindow pView) {
     model = pModel;
     view = pView;
 
+    thread uiRefresher(&GameController::loadUI, this);
+    uiRefresher.detach();
+
     while (!view.started){}
 
     // Detach a thread for player movement
@@ -34,8 +37,14 @@ GameController::GameController(Game pModel, GameWindow pView) {
             };
         };
     }
-
 }
+
+
+void GameController::loadUI() {
+    view.run();
+}
+
+
 
 void GameController::movePlayer() {
     // sf::Event event;

@@ -35,9 +35,7 @@ void GameWindow::run(){
                     loadGame(gameWindow);
                     gameWindow.display();
                     started = true;
-
                 }
-
             }
         }
     }
