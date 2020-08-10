@@ -58,23 +58,23 @@ GameController::GameController() {
                 // }
 
                 if (event.type == sf::Event::KeyPressed) {
-                    int x = model.getPlayer().getPosX();
+                    // int x = model.getPlayer().getPosX();
 
                     // Right movement
                     if (event.key.code == sf::Keyboard::A) {
                         model.getPlayer().moveLeft();
-                        model.getBoard().changePos(model.getPlayer(), x, model.getPlayer().getPosY());
+                        // model.getBoard().changePos(model.getPlayer(), x, model.getPlayer().getPosY());
                         
                     } else if (event.key.code == sf::Keyboard::D) {
                         model.getPlayer().moveRight();
-                        model.getBoard().changePos(model.getPlayer(), x, model.getPlayer().getPosY());
+                        // model.getBoard().changePos(model.getPlayer(), x, model.getPlayer().getPosY());
 
                     } else if (event.key.code == sf::Keyboard::Space) {
                         Bullet shot = model.getPlayer().shoot();
                         shot.setFromPlayer(true);
                         model.getPlayer().shoot();
                         model.getBullets().push_back(shot);
-                        model.getBoard().getBoard()[shot.getPosX()][shot.getPosY()] = &shot;
+                        // model.getBoard().getBoard()[shot.getPosX()][shot.getPosY()] = &shot;
 
 
                     } else if (event.key.code == sf::Keyboard::Escape) {
