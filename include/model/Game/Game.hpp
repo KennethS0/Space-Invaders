@@ -40,6 +40,7 @@ class Game {
         bool isOver();
 
         Player getPlayer();
+        vector<Bullet> getBullets();
 
         Board getBoard();
 };

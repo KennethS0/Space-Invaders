@@ -60,8 +60,12 @@ GameController::GameController() {
                         model.getBoard().changePos(model.getPlayer(), x, model.getPlayer().getPosY());
 
                     } else if (event.key.code == sf::Keyboard::Space) {
-                        std::cout<<"Space"<<endl;
-
+                        Bullet shot = model.getPlayer().shoot();
+                        shot.setFromPlayer(true);
+                        model.getPlayer().shoot();
+                        model.getBullets().push_back(shot);
+                        model.getBoard().getBoard()[shot.getPosX()][shot.getPosY()] = &shot;
+                        
 
                     } else if (event.key.code == sf::Keyboard::Escape) {
                         
