@@ -17,7 +17,7 @@ int main()
    GameWindow window = GameWindow();
    Game si = Game();
 
-   GameController controller = GameController(si ,window);
+   GameController controller = GameController(si, window);
 
    // ===== FOR COMMAND LINE GAME ======
 

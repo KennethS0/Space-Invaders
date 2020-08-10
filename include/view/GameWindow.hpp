@@ -13,8 +13,8 @@ class GameWindow
 	private:
 		vector<vector<sf::Sprite>> Board;
 	public:
-		sf::RenderWindow gameWindow;
-
+	
+		// sf::RenderWindow gameWindow;
 
 		bool started = false;
 

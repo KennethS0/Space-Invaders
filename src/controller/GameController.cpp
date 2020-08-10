@@ -22,12 +22,6 @@ GameController::GameController(Game pModel, GameWindow pView) {
     // Start the game (not in terminal)
     model.startGame(false);
 
-    sf::Texture EnemyImage;
-
-    if (!EnemyImage.loadFromFile("src/view/Enemy.png")){
-        std::cout << "Error Loading Image!" << std::endl;
-    }
-
     // Refreshes the game on the screen
     while (!model.isOver()) {
         for (int i = 0; i < ROW_SIZE; i++) {
@@ -35,10 +29,9 @@ GameController::GameController(Game pModel, GameWindow pView) {
             for (int j = 0; j < COLUMN_SIZE; j++) {
                 // NULLPTR IS FOUND
                 if (model.getBoard().getBoard()[i][j] == nullptr) {
-                    view.getBoard()[i][j].setColor(sf::Color::Transparent);               
+                                   
                 } else {
-                    view.getBoard()[i][j].setTexture(EnemyImage);
-                    view.getBoard()[i][j].setScale(0.1, 0.1);
+
                 };
             };
         };
