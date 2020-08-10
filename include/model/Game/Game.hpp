@@ -38,6 +38,8 @@ class Game {
 
         void setOver(bool pOver);
         bool isOver();
+
+        Board getBoard();
 };
 
 #endif

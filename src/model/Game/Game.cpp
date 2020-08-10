@@ -300,3 +300,8 @@ void Game::setOver(bool pOver) {
 bool Game::isOver() {
     return over;
 }
+
+
+Board Game::getBoard() {
+    return board;
+}

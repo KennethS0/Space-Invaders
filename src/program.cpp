@@ -1,4 +1,7 @@
 #include <model/Game/Game.hpp>
+#include <view/GameWindow.hpp>
+#include <controller/GameController.hpp>
+
 #include <program.hpp>
 #include <iostream>
 #include <stdio.h>
@@ -10,27 +13,31 @@ using namespace std;
 
 int main()
 {
+   // ===== FOR GUI GAME =====
+   GameWindow window = GameWindow();
+   window.run();
 
-   // Disables buffered input
-   struct termios old_tio, new_tio;
+   // ===== FOR COMMAND LINE GAME ======
 
-   // get the terminal settings for stdin
-   tcgetattr(STDIN_FILENO, &old_tio);
+   // // Disables buffered input
+   // struct termios old_tio, new_tio;
 
-   // we want to keep the old setting to restore them at the end
-   new_tio = old_tio;
+   // // get the terminal settings for stdin
+   // tcgetattr(STDIN_FILENO, &old_tio);
 
-   // disable cannonical mode (buffered i/o) and local echo
-   new_tio.c_lflag &=(~ICANON & ~ECHO);
+   // // we want to keep the old setting to restore them at the end
+   // new_tio = old_tio;
 
-   // set the new settings immediatley
-   tcsetattr(STDIN_FILENO, TCSANOW, &new_tio);
+   // // disable cannonical mode (buffered i/o) and local echo
+   // new_tio.c_lflag &=(~ICANON & ~ECHO);
 
+   // // set the new settings immediatley
+   // tcsetattr(STDIN_FILENO, TCSANOW, &new_tio);
 
-   Game si = Game();
-   si.startGame(true);
+   // Game si = Game();
+   // si.startGame(true);
 
-   // sets the old file settings
-   tcsetattr(STDIN_FILENO, TCSANOW, &old_tio);
-   return 0;
+   // // sets the old file settings
+   // tcsetattr(STDIN_FILENO, TCSANOW, &old_tio);
+   // return 0;
 }

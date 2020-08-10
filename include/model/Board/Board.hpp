@@ -8,7 +8,7 @@
 
 class Board {
     private:
-        Entity*** board= new Entity** [ROW_SIZE];
+        Entity*** board = new Entity** [ROW_SIZE];
         int score;    
         int lives;
 

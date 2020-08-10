@@ -15,7 +15,7 @@
 
 CXX      := -c++
 CXXFLAGS := -pedantic-errors -Wall -Wextra -Werror
-LDFLAGS  := -L/usr/lib -lstdc++ -lm -lpthread
+LDFLAGS  := -L/usr/lib -lstdc++ -lm -lpthread -lsfml-graphics -lsfml-window -lsfml-system
 BUILD    := ./build
 OBJ_DIR  := $(BUILD)/objects
 APP_DIR  := $(BUILD)/apps
