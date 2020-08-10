@@ -305,3 +305,8 @@ bool Game::isOver() {
 Board Game::getBoard() {
     return board;
 }
+
+
+Player Game::getPlayer() {
+    return player;
+}

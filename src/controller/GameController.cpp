@@ -48,15 +48,24 @@ GameController::GameController() {
             } else {
                 // Game logic and redrawing
                 if (event.type == sf::Event::KeyPressed) {
-                    
+                    int x = model.getPlayer().getPosX();
                     // Right movement
                     if (event.key.code == sf::Keyboard::A) {
-                        std::cout<<"A"<<endl;
+                        model.getPlayer().moveLeft();
+                        model.getBoard().changePos(model.getPlayer(), x, model.getPlayer().getPosY());
+
                     } else if (event.key.code == sf::Keyboard::D) {
-                        std::cout<<"D"<<endl;
+                        model.getPlayer().moveRight();
+                        model.getBoard().changePos(model.getPlayer(), x, model.getPlayer().getPosY());
+
+
                     } else if (event.key.code == sf::Keyboard::Space) {
                         std::cout<<"Space"<<endl;
+
+
                     } else if (event.key.code == sf::Keyboard::Escape) {
+                        
+                        si_window.clear();
                         view.loadMenu(si_window);
                         si_window.display();
 
