@@ -38,6 +38,7 @@ void GameWindow::run(){
                     gameWindow.clear();
 
                     // Loads the game window
+                    sf::RenderWindow gameWindow(sf::VideoMode(Screen_Width, Screen_Height), "Space Invaders");
                     loadGame(gameWindow);
 
 
@@ -107,11 +108,13 @@ void GameWindow::loadMenu(sf::RenderWindow& pWindow) {
 
 
 void GameWindow::loadGame(sf::RenderWindow& pWindow) {
+
     sf::Texture EnemyImage;
     sf::Texture PlayerImage;
     sf::Texture BulletImage;
 
     sf::Texture BackgroundTexture;
+
 
     if(!PlayerImage.loadFromFile("/home/ifrann/Documents/TEC/I SEM/Arqui/SpaceInvaders_Project/Space-Invaders/src/view/Ship.png")){
         std::cout << "Error Loading Image!" << std::endl;
@@ -156,7 +159,9 @@ void GameWindow::loadGame(sf::RenderWindow& pWindow) {
             //nullSprite.scale();
             Row.push_back(nullSprite);
             x += 45;
-        }
+        }    sf::Font MyFont;
+    if(!MyFont.loadFromFile("/home/ifrann/Documents/TEC/I SEM/Arqui/SpaceInvaders_Project/Space-Invaders/src/view/SPACEMAN.TTF")) return;
+
         Board.push_back(Row);
     }
     
@@ -194,7 +199,7 @@ void GameWindow::loadGame(sf::RenderWindow& pWindow) {
 
 
     //Main Window Loop
-    pWindow.clear();    
+    
     for(int i = 0; i<ROW_NUM; i++){
         for(int j = 0; j<COLUMN_NUM; j++)
         {
