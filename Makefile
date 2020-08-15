@@ -15,7 +15,7 @@
 
 CXX      := -c++
 CXXFLAGS := -pedantic-errors -Wall -Wextra -Werror
-LDFLAGS  := -L/usr/lib -lstdc++ -lm -lpthread -lsfml-graphics -lsfml-window -lsfml-system
+LDFLAGS  := -L/usr/lib -lstdc++ -lm -lpthread
 BUILD    := ./build
 OBJ_DIR  := $(BUILD)/objects
 APP_DIR  := $(BUILD)/apps
@@ -29,8 +29,6 @@ SRC      :=                      \
    $(wildcard src/model/Bullet/*.cpp) \
    $(wildcard src/model/Player/*.cpp) \
    $(wildcard src/model/Game/*.cpp) \
-   $(wildcard src/view/*.cpp) \
-   $(wildcard src/controller/*.cpp) \
    $(wildcard src/*.cpp) \
 
 OBJECTS  := $(SRC:%.cpp=$(OBJ_DIR)/%.o)

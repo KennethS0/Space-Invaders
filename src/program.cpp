@@ -13,12 +13,9 @@ using namespace std;
 
 int main()
 {
-   // ===== FOR GUI GAME =====
-   GameController controller = GameController();
-
    // ===== FOR COMMAND LINE GAME ======
 
-   // Lines from 24 through 36, and lines 41 through 42 were obtained from: https://shtrom.ssji.net/skb/getc.html
+   // Lines from 18 through 33, and lines 38 through 40 were obtained from: https://shtrom.ssji.net/skb/getc.html
 
    // Disables buffered input
    struct termios old_tio, new_tio;
