@@ -5,8 +5,9 @@
 #include <unistd.h>
 #include <termios.h>
 
-
 using namespace std;
+
+extern "C" void printMenu();
 
 int main()
 {
@@ -29,8 +30,9 @@ int main()
    // set the new settings immediatley
    tcsetattr(STDIN_FILENO, TCSANOW, &new_tio);
 
-   Game si = Game();
-   si.startGame(true);
+   printMenu();
+   // Game si = Game();
+   // si.startGame(true);
 
    // sets the old file settings
    tcsetattr(STDIN_FILENO, TCSANOW, &old_tio);

@@ -13,9 +13,9 @@
 # **************************************************************
 #
 
-CXX      := -c++
+CXX      := gcc
 CXXFLAGS := -pedantic-errors -Wall -Wextra -Werror
-LDFLAGS  := -L/usr/lib -lstdc++ -lm -lpthread -fPIC
+LDFLAGS  :=  -L/usr/lib -lstdc++ -lm -lpthread -fPIC
 BUILD    := ./build
 OBJ_DIR  := $(BUILD)/objects
 APP_DIR  := $(BUILD)/apps
@@ -31,17 +31,21 @@ SRC      :=                      \
    $(wildcard src/model/Game/*.cpp) \
    $(wildcard src/*.cpp) \
 
+ASSEMBLY_SRC :=					\
+	$(wildcard src/assembly/*.asm) \
+
 OBJECTS  := $(SRC:%.cpp=$(OBJ_DIR)/%.o)
 
 all: build $(APP_DIR)/$(TARGET)
 
 $(OBJ_DIR)/%.o: %.cpp
+	nasm -f elf64 $(ASSEMBLY_SRC)
 	@mkdir -p $(@D)
-	$(CXX) $(CXXFLAGS) $(INCLUDE) -c $< -o $@ $(LDFLAGS)
+	$(CXX) $(CXXFLAGS) $(INCLUDE) -c  $< -o $@ $(LDFLAGS)
 
 $(APP_DIR)/$(TARGET): $(OBJECTS)
 	@mkdir -p $(@D)
-	$(CXX) $(CXXFLAGS) -o $(APP_DIR)/$(TARGET) $^ $(LDFLAGS)
+	$(CXX) $(CXXFLAGS) -o $(APP_DIR)/$(TARGET) $^ $(LDFLAGS) $(ASSEMBLY_SRC)
 
 .PHONY: all build clean debug release
 
