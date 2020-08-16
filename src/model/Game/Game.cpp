@@ -5,6 +5,8 @@
 #include <algorithm>
 #include <cstdlib>
 #include <unistd.h>
+#include <chrono>
+using namespace std::chrono;
 using namespace std;
 
 #define MAX_ENEMY_BULLETS 1
@@ -45,6 +47,28 @@ void Game::movePlayer() {
 
         keyPressed = getchar();
 
+        __asm__(
+            "mov %0, %%rax;" // Moves saved keyPressed
+            
+            "leaq %1, %%rbx" // Moves the address of the player
+            "pushq %%rbx" // Saves the address of the player
+
+            "cmpq $97, %%rax;" // Value of 'a'
+            "je __moveLeft;"
+
+            "cmpq $100, %%rax;" // Value of 'd'
+            "je __moveRight;"
+            
+            "__moveLeft:;"
+                "call moveLeft"
+            
+            "__moveRight:;"
+            :
+            :"m"(keyPressed), "m"(player)
+        );
+
+
+
         if (keyPressed == 'a') {
             // Moves the player to the left
             player.moveLeft();
@@ -62,7 +86,7 @@ void Game::movePlayer() {
             bullets.push_back(shot);
 
             board.getBoard()[shot.getPosY()][shot.getPosX()] = &shot;
-            this_thread::sleep_for(chrono::milliseconds(100));
+            this_thread::sleep_for(milliseconds(100));
         }
     }
 }
@@ -77,7 +101,7 @@ void Game::alienMovement() {
     // true <- (move left)
     bool direction = false;
     while (!over) {
-
+        
         if(aliens.size() == 0) {
             newLevel();
         }
@@ -125,8 +149,8 @@ void Game::alienMovement() {
         };
 
         generateShots();
-       
-        this_thread::sleep_for(chrono::milliseconds(ALIEN_MOVE_SPEED));
+
+        this_thread::sleep_for(milliseconds(ALIEN_MOVE_SPEED));
         boundaries[0] = -1;
         boundaries[1] = -1;   
     }
@@ -190,8 +214,7 @@ void Game::bulletMovement() {
                 }
                 bulletPos++;
             }
-
-            this_thread::sleep_for(chrono::milliseconds(BULLET_SPEED));
+            this_thread::sleep_for(milliseconds(BULLET_SPEED));
         }
     }
 }
@@ -213,7 +236,7 @@ void Game::startGame(bool inTerminal) {
     while (!over && inTerminal) {
         // Keeps refreshing the screen
         board.printBoard();
-        this_thread::sleep_for(chrono::milliseconds(DRAW_SPEED));
+        this_thread::sleep_for(milliseconds(DRAW_SPEED));
         system("clear");
     }   
 }
@@ -249,7 +272,7 @@ void Game::generateShots() {
         int posY = it.getPosY();
     
         if (aliens.size() == 1) {
-            this_thread::sleep_for(chrono::milliseconds(1000));
+            this_thread::sleep_for(milliseconds(1000));
         }
 
         // Checks if theres an entity in front
@@ -260,7 +283,7 @@ void Game::generateShots() {
  
             board.getBoard()[shot.getPosY()][shot.getPosX()] = &shot;
             bulletCount++;
-            this_thread::sleep_for(chrono::milliseconds(100));
+            this_thread::sleep_for(milliseconds(100));
         }
     }
 }
@@ -310,6 +333,7 @@ Board Game::getBoard() {
 Player Game::getPlayer() {
     return player;
 }
+
 
 vector<Bullet> Game::getBullets(){
     return bullets;

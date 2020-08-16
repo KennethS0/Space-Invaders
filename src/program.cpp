@@ -1,7 +1,4 @@
 #include <model/Game/Game.hpp>
-#include <view/GameWindow.hpp>
-#include <controller/GameController.hpp>
-
 #include <program.hpp>
 #include <iostream>
 #include <stdio.h>
