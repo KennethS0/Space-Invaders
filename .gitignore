@@ -1,5 +1,6 @@
 *.exe
 .vscode
+*.o
 
 # Binary files
 /build

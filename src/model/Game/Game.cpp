@@ -5,11 +5,20 @@
 #include <algorithm>
 #include <cstdlib>
 #include <unistd.h>
+#include <chrono>
+using namespace std::chrono;
 using namespace std;
 
 #define MAX_ENEMY_BULLETS 1
 #define ALIEN_DEATH 100
 #define SHOT_DESTROYED 50
+#define ALIEN_SYMBOL 'U'
+#define BULLET_SYMBOL '*'
+
+
+#define DRAW_SPEED 37
+#define ALIEN_MOVE_SPEED 600
+#define BULLET_SPEED 200
 
 Game::Game() {
     over = false;
@@ -33,10 +42,32 @@ void Game::movePlayer() {
             
     char keyPressed;
 
+    // // Method pointers
+    // void (Player::*moveLeftPtr)() = &Player::moveLeft;
+
     while (!over){
         int x = player.getPosX();
 
         keyPressed = getchar();
+
+        // __asm__(
+        //     "mov %0, %%rax;" // Moves saved keyPressed
+            
+        //     "leaq %1, %%rbx;" // Moves the address of the player
+        //     "push %%rbx;" // Saves the address of the player
+
+        //     "cmpq $97, %%rax;" // Value of 'a'
+        //     "je __moveLeft;"
+
+        //     "cmpq $100, %%rax;" // Value of 'd'
+        //     "je __moveRight;"
+            
+        //     "__moveLeft:;"
+
+        //     "__moveRight:;"
+        //     :
+        //     :"m"(keyPressed), "m"(player)
+        // );
 
         if (keyPressed == 'a') {
             // Moves the player to the left
@@ -55,7 +86,7 @@ void Game::movePlayer() {
             bullets.push_back(shot);
 
             board.getBoard()[shot.getPosY()][shot.getPosX()] = &shot;
-            this_thread::sleep_for(chrono::milliseconds(100));
+            this_thread::sleep_for(milliseconds(100));
         }
     }
 }
@@ -70,9 +101,9 @@ void Game::alienMovement() {
     // true <- (move left)
     bool direction = false;
     while (!over) {
-
+        
         if(aliens.size() == 0) {
-            spawnAliens();
+            newLevel();
         }
 
         // Finds the boundaries
@@ -118,8 +149,8 @@ void Game::alienMovement() {
         };
 
         generateShots();
-       
-        this_thread::sleep_for(chrono::milliseconds(500));
+
+        this_thread::sleep_for(milliseconds(ALIEN_MOVE_SPEED));
         boundaries[0] = -1;
         boundaries[1] = -1;   
     }
@@ -138,27 +169,24 @@ void Game::bulletMovement() {
                 if (it.isFromPlayer()) {
                     it.moveUp();
                     if (it.getPosY() < 0) {
-                        board.clearPos(it.getPosX(), it.getPosY() + 1);
-                        bullets.erase(bullets.begin() + bulletPos);
+                        deleteEntity(it.getPosX(), it.getPosY() + 1, bullets, bulletPos);
                         break;
                     }
 
                 } else {
                     it.moveDown();
                     if (it.getPosY() > ROW_SIZE - 1) {
-                        board.clearPos(it.getPosX(), it.getPosY() - 1);
-                        bullets.erase(bullets.begin() + bulletPos);
+                        deleteEntity(it.getPosX(), it.getPosY() - 1, bullets, bulletPos);
                         break;
                     }
                 }
-                
+
                 if (board.getBoard()[it.getPosY()][it.getPosX()] == nullptr) {
                     board.changePos(it, posX, posY);
                 } else {
-                    // Removes pointers from vector
+                    // Removes pointers from board
                     board.clearPos(posX, posY);
-
-                    bool alien = false;
+                    char symbol = board.getBoard()[it.getPosY()][it.getPosX()]->getSymbol();
 
                     if (posY == ROW_SIZE - 2) {
                         board.loseLife();
@@ -170,46 +198,23 @@ void Game::bulletMovement() {
                         break;
                     }
 
-                    int entPos = 0;
-                    for (auto &et : aliens) {
-                        int x = et.getPosX();
-                        int y = et.getPosY();
-                        if (x == it.getPosX() && y == it.getPosY()) {
-                            aliens.erase(aliens.begin() + entPos);
-                            board.setScore(board.getScore() + ALIEN_DEATH);
-                            alien = true;
+                    if (symbol == ALIEN_SYMBOL) {
+                        checkVector(aliens, it.getPosX(), it.getPosY(), ALIEN_DEATH);
+                     } else if (symbol == BULLET_SYMBOL){
+                        checkVector(bullets, it.getPosX(), it.getPosY(), SHOT_DESTROYED);
+                    }       
 
-                            break;
-                        }
-                        entPos++;
-                    }
-
-                    if (!alien){
-                        entPos = 0;
-                        for (auto &et : bullets) {
-                            int x = et.getPosX();
-                            int y = et.getPosY();
-                            if (x == it.getPosX() && y == it.getPosY()) {
-                                bullets.erase(bullets.begin() + entPos);
-                                board.setScore(board.getScore() + SHOT_DESTROYED);
-                    
-                                break;
-                            }
-                            entPos++;
-                        }
-                    }                    
                     // Removes the pointer to the entity removed
                     board.clearPos(it.getPosX(), it.getPosY());
 
                     // Removes the bullet that collides with something
                     bullets.erase(bullets.begin() + bulletPos);
-                    
+
                     break;
                 }
                 bulletPos++;
             }
-
-            this_thread::sleep_for(chrono::milliseconds(200));
+            this_thread::sleep_for(milliseconds(BULLET_SPEED));
         }
     }
 }
@@ -217,9 +222,11 @@ void Game::bulletMovement() {
 
 void Game::startGame(bool inTerminal) {
     // Initial game set up
-    thread playerMovement(&Game::movePlayer, this);
-    playerMovement.detach();
-
+    if (inTerminal) {
+        thread playerMovement(&Game::movePlayer, this);
+        playerMovement.detach();
+    }
+    
     thread alienMovement(&Game::alienMovement, this);
     alienMovement.detach();
 
@@ -229,9 +236,25 @@ void Game::startGame(bool inTerminal) {
     while (!over && inTerminal) {
         // Keeps refreshing the screen
         board.printBoard();
-        this_thread::sleep_for(chrono::milliseconds(37));
+        this_thread::sleep_for(milliseconds(DRAW_SPEED));
         system("clear");
     }   
+}
+
+
+template <class T>
+void Game::checkVector(T &pVector, int pPosX, int pPosY, int pScore){
+    int entPos = 0;
+    for (auto &et : pVector) {
+        int x = et.getPosX();
+        int y = et.getPosY();
+        if (x == pPosX && y == pPosY) {
+            pVector.erase(pVector.begin() + entPos);
+            board.setScore(board.getScore() + pScore);
+            break;
+        }
+    entPos++;
+    }
 }
 
 
@@ -248,6 +271,10 @@ void Game::generateShots() {
         int posX = it.getPosX();
         int posY = it.getPosY();
     
+        if (aliens.size() == 1) {
+            this_thread::sleep_for(milliseconds(1000));
+        }
+
         // Checks if theres an entity in front
         if (board.getBoard()[posY + 1][posX] == nullptr && randomCondition) {
             Bullet shot = it.shoot();
@@ -256,9 +283,35 @@ void Game::generateShots() {
  
             board.getBoard()[shot.getPosY()][shot.getPosX()] = &shot;
             bulletCount++;
-            this_thread::sleep_for(chrono::milliseconds(100));
+            this_thread::sleep_for(milliseconds(100));
         }
     }
+}
+
+
+template <class T>
+void Game::deleteEntity(int posX, int posY, T &pVector, int pVectorPos) {
+    board.clearPos(posX, posY);
+    pVector.erase(pVector.begin() + pVectorPos);
+}   
+
+
+void Game::newLevel() {
+    // Initializing aliens
+    for (int i = 3; i < COLUMN_SIZE - 7; i++) {
+
+        for (int j = 0; j < 4; j++) {
+            aliens.push_back(Alien(j, i));
+        };
+    };
+
+    // Adds one life to the player if they lost one
+    if (board.getLives() < 3) {
+        board.setLives(board.getLives() + 1);
+    };
+
+    // Randomizing aliens
+    random_shuffle(aliens.begin(), aliens.end());
 }
 
 
@@ -267,19 +320,21 @@ void Game::setOver(bool pOver) {
 }
 
 
-void Game::spawnAliens() {
-    // Initializing aliens
-    for (int i = 3; i < COLUMN_SIZE - 3; i++) {
-
-        for (int j = 0; j < 4; j++) {
-            aliens.push_back(Alien(j, i));
-        };
-    };
-
-    // Randomizing aliens
-    random_shuffle(aliens.begin(), aliens.end());
-}
-
 bool Game::isOver() {
     return over;
+}
+
+
+Board Game::getBoard() {
+    return board;
+}
+
+
+Player Game::getPlayer() {
+    return player;
+}
+
+
+vector<Bullet> Game::getBullets(){
+    return bullets;
 }

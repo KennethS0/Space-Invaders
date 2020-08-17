@@ -13,9 +13,9 @@
 # **************************************************************
 #
 
-CXX      := -c++
+CXX      := gcc
 CXXFLAGS := -pedantic-errors -Wall -Wextra -Werror
-LDFLAGS  := -L/usr/lib -lstdc++ -lm -lpthread
+LDFLAGS  :=  -L/usr/lib -lstdc++ -lm -lpthread -fPIC
 BUILD    := ./build
 OBJ_DIR  := $(BUILD)/objects
 APP_DIR  := $(BUILD)/apps
@@ -29,19 +29,26 @@ SRC      :=                      \
    $(wildcard src/model/Bullet/*.cpp) \
    $(wildcard src/model/Player/*.cpp) \
    $(wildcard src/model/Game/*.cpp) \
-   $(wildcard src/*.cpp)         \
+   $(wildcard src/*.cpp) \
+
+
+
+ASSEMBLY_OBJECTS := 			\
+	$(wildcard src/assembly/*.o)\
 
 OBJECTS  := $(SRC:%.cpp=$(OBJ_DIR)/%.o)
 
 all: build $(APP_DIR)/$(TARGET)
 
 $(OBJ_DIR)/%.o: %.cpp
+	nasm -f elf64 src/assembly/endgame.asm
+	nasm -f elf64 src/assembly/menu.asm
 	@mkdir -p $(@D)
-	$(CXX) $(CXXFLAGS) $(INCLUDE) -c $< -o $@ $(LDFLAGS)
+	$(CXX) $(CXXFLAGS) $(INCLUDE) -c  $< -o $@ $(LDFLAGS)
 
 $(APP_DIR)/$(TARGET): $(OBJECTS)
 	@mkdir -p $(@D)
-	$(CXX) $(CXXFLAGS) -o $(APP_DIR)/$(TARGET) $^ $(LDFLAGS)
+	$(CXX) $(CXXFLAGS) -o $(APP_DIR)/$(TARGET) $^ $(LDFLAGS) $(ASSEMBLY_OBJECTS)
 
 .PHONY: all build clean debug release
 
