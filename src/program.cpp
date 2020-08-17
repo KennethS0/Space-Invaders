@@ -8,6 +8,7 @@
 using namespace std;
 
 extern "C" void printMenu();
+extern "C" void printEndGame();
 
 int main()
 {
@@ -33,7 +34,7 @@ int main()
    printMenu();
    // Game si = Game();
    // si.startGame(true);
-
+   printEndGame();
    // sets the old file settings
    tcsetattr(STDIN_FILENO, TCSANOW, &old_tio);
    return 0;

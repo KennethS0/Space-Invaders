@@ -42,10 +42,32 @@ void Game::movePlayer() {
             
     char keyPressed;
 
+    // // Method pointers
+    // void (Player::*moveLeftPtr)() = &Player::moveLeft;
+
     while (!over){
         int x = player.getPosX();
 
         keyPressed = getchar();
+
+        // __asm__(
+        //     "mov %0, %%rax;" // Moves saved keyPressed
+            
+        //     "leaq %1, %%rbx;" // Moves the address of the player
+        //     "push %%rbx;" // Saves the address of the player
+
+        //     "cmpq $97, %%rax;" // Value of 'a'
+        //     "je __moveLeft;"
+
+        //     "cmpq $100, %%rax;" // Value of 'd'
+        //     "je __moveRight;"
+            
+        //     "__moveLeft:;"
+
+        //     "__moveRight:;"
+        //     :
+        //     :"m"(keyPressed), "m"(player)
+        // );
 
         if (keyPressed == 'a') {
             // Moves the player to the left
