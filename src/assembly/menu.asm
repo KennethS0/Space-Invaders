@@ -24,3 +24,4 @@ printMenu:
     
     .printInput:
 
+    ret
