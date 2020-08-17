@@ -19,6 +19,7 @@ msgHead6 db "╚═════╝░╚═╝░░░░░╚═╝░░╚�
 msgHead6Len equ $-msgHead6
 
 headerDelay dq 1, 1000000
+blinkDelay dq 1, 1000
 
 clearScr db 27,"[H",27,"[2J"
 clearScrLen equ $-clearScr
@@ -45,6 +46,14 @@ section .text
     syscall
 %endmacro
 
+%macro printWholeHeader 0
+    print msgHead1, msgHead1Len
+    print msgHead2, msgHead2Len
+    print msgHead3, msgHead3Len
+    print msgHead4, msgHead4Len
+    print msgHead5, msgHead5Len
+    print msgHead6, msgHead6Len
+%endmacro
 
 global printMenu
 printMenu:
@@ -70,4 +79,20 @@ printMenu:
     print msgHead6, msgHead6Len
     wait headerDelay
 
+    mov r10, 2
+
+    .blink:
+        print clearScr, clearScrLen
+        wait blinkDelay
+
+        printWholeHeader
+        wait blinkDelay
+
+        cmp r10, 0
+        je .end
+
+        dec r10
+        jmp .blink
+
+    .end:
     ret
