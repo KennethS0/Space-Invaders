@@ -41,8 +41,8 @@ OBJECTS  := $(SRC:%.cpp=$(OBJ_DIR)/%.o)
 all: build $(APP_DIR)/$(TARGET)
 
 $(OBJ_DIR)/%.o: %.cpp
-	nasm -f elf64 $(src/assembly/endgame.asm)
-	nasm -f elf64 $(src/assembly/menu.asm)
+	nasm -f elf64 src/assembly/endgame.asm
+	nasm -f elf64 src/assembly/menu.asm
 	@mkdir -p $(@D)
 	$(CXX) $(CXXFLAGS) $(INCLUDE) -c  $< -o $@ $(LDFLAGS)
 

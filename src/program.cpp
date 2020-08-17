@@ -35,6 +35,7 @@ int main()
    // Game si = Game();
    // si.startGame(true);
    printEndGame();
+   
    // sets the old file settings
    tcsetattr(STDIN_FILENO, TCSANOW, &old_tio);
    return 0;
