@@ -18,6 +18,9 @@ section .text
 
 global printMenu
 printMenu:
+    ; Prints the header message
     print msgHeader, msgHeaderLen
     print msgSeparator, msgSeparatorLen
-    ret
+    
+    .printInput:
+
