@@ -34,6 +34,9 @@ SRC      :=                      \
 ASSEMBLY_SRC :=					\
 	$(wildcard src/assembly/*.asm) \
 
+ASSEMBLY_OBJECTS := 			\
+	$(wildcard src/assembly/*.o)\
+
 OBJECTS  := $(SRC:%.cpp=$(OBJ_DIR)/%.o)
 
 all: build $(APP_DIR)/$(TARGET)
@@ -45,7 +48,7 @@ $(OBJ_DIR)/%.o: %.cpp
 
 $(APP_DIR)/$(TARGET): $(OBJECTS)
 	@mkdir -p $(@D)
-	$(CXX) $(CXXFLAGS) -o $(APP_DIR)/$(TARGET) $^ $(LDFLAGS) $(ASSEMBLY_SRC)
+	$(CXX) $(CXXFLAGS) -o $(APP_DIR)/$(TARGET) $^ $(LDFLAGS) $(ASSEMBLY_OBJECTS)
 
 .PHONY: all build clean debug release
 
