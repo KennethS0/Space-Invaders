@@ -32,10 +32,12 @@ int main()
    tcsetattr(STDIN_FILENO, TCSANOW, &new_tio);
 
    printMenu();
+ 
    // Game si = Game();
    // si.startGame(true);
+ 
    printEndGame();
-   
+
    // sets the old file settings
    tcsetattr(STDIN_FILENO, TCSANOW, &old_tio);
    return 0;
