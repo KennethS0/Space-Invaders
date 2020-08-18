@@ -1,5 +1,5 @@
 # Space-Invaders
-A game made for the Computer Architecture course. It's a simple Space Invaders implementation in C with a small assembly integration.
+A game made for the Computer Architecture course. It's a simple Space Invaders implementation in C++ with a small assembly integration.
 
 ## Requirements
 Must be on any Linux distribution that supports x86_64.
